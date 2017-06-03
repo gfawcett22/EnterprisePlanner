@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  customers:
+    image: customers
+    build:
+      context: ./Customers
+      dockerfile: Dockerfile
+
+  orders:
+    image: orders
+    build:
+      context: ./Orders
+      dockerfile: Dockerfile
