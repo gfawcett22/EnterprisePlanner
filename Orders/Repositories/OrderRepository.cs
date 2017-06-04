@@ -29,12 +29,12 @@ namespace Orders.Repositories
             return _context.Orders.FirstOrDefault(o => o.Id == orderId);
         }
 
-        public IEnumerable<Order> GetOrders()
+        public IQueryable<Order> GetOrders()
         {
             return _context.Orders;
         }
 
-        public IEnumerable<Order> GetOrders(IEnumerable<int> orderIds)
+        public IQueryable<Order> GetOrders(IEnumerable<int> orderIds)
         {
             return _context.Orders.Where(o => orderIds.Contains(o.Id));
         }

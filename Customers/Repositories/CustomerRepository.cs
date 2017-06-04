@@ -34,12 +34,12 @@ namespace Customers.Repositories
             return _context.Customers.FirstOrDefault(c => c.Id == customerId);
         }
 
-        public IEnumerable<Customer> GetCustomers()
+        public IQueryable<Customer> GetCustomers()
         {
             return _context.Customers;
         }
 
-        public IEnumerable<Customer> GetCustomers(IEnumerable<int> customerIds)
+        public IQueryable<Customer> GetCustomers(IEnumerable<int> customerIds)
         {
             return _context.Customers.Where(c => customerIds.Contains(c.Id));
         }

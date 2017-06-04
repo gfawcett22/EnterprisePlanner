@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Orders.Entities;
 
 namespace Orders.Repositories
 {
     public interface IOrderRepository
     {
-		IEnumerable<Order> GetOrders();
+        IQueryable<Order> GetOrders();
 		Order GetOrder(int orderId);
-		IEnumerable<Order> GetOrders(IEnumerable<int> orderIds);
+        IQueryable<Order> GetOrders(IEnumerable<int> orderIds);
 		void AddOrder(Order order);
 		void DeleteOrder(Order order);
 		void UpdateOrder(Order order);

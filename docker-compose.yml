@@ -6,9 +6,17 @@ services:
     build:
       context: ./Customers
       dockerfile: Dockerfile
+      networks:
+      - internal-network
 
   orders:
     image: orders
     build:
       context: ./Orders
       dockerfile: Dockerfile
+    networks:
+      - internal-network
+
+  networks:
+    internal-network:
+      driver: bridge
