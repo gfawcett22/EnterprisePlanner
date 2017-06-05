@@ -25,7 +25,7 @@ namespace Customers.Controllers
         {
             try
             {
-                var customersFromRepo = _repo.GetCustomers();
+                var customersFromRepo = _repo.GetCustomers().ToList();
                 var customers = Mapper.Map<IEnumerable<CustomerDto>>(customersFromRepo);
                 return Ok(customers);
             }
