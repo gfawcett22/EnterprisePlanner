@@ -1,2 +1,8 @@
-<md-toolbar color="accent">Enterprise Planner</md-toolbar>
+<md-toolbar color="primary">
+    <a [routerLink]="['/welcome']" ><span>Enterprise Planner</span></a>
+    <div class="app-toolbar-filler"></div>
+
+    <button md-raised-button [routerLink]="['/customers']" >Customers</button>
+    <button md-raised-button [routerLink]="['/orders']" >Orders</button>
+</md-toolbar>
 <router-outlet></router-outlet>
