@@ -12,3 +12,8 @@ services:
     build:
       context: ./Orders
       dockerfile: Dockerfile
+  api_gateway:
+    image: api_gateway
+    build:
+      context: ./../API_Gateway
+      dockerfile: Dockerfile
