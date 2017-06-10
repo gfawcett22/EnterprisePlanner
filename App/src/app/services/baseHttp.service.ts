@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import {Response} from '@angular/http';
 import 'rxjs/add/observable/throw';
 
 @Injectable()
