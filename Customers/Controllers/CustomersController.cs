@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Customers.Repositories;
 using AutoMapper;
-using Customers.Models;
 using Customers.Entities;
+using CustomersDtoTypes.Models;
 
 namespace Customers.Controllers
 {

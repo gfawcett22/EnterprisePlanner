@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Customers.Contexts;
 using Customers.Repositories;
-using Customers.Models;
 using Customers.Entities;
+using CustomersDtoTypes.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
