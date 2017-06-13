@@ -15,5 +15,5 @@ services:
   api_gateway:
     image: api_gateway
     build:
-      context: ./../API_Gateway
+      context: ./API_Gateway
       dockerfile: Dockerfile

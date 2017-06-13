@@ -1,5 +1,4 @@
 ﻿using System;
-using Customers.Entities;
 
 namespace Orders.Models
 {
@@ -7,6 +6,5 @@ namespace Orders.Models
     {
         public DateTime DatePlaced { get; set; }
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
     }
 }

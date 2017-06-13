@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API_Gateway.Formatters;
+using API_Gateway.HttpClients;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,7 +30,13 @@ namespace API_Gateway
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.InputFormatters.Add(new ProtobufInputFormatter());
+                options.OutputFormatters.Add(new ProtobufOutputFormatter());
+            });
+            services.AddSingleton(new CustomersHttpClient());
+            services.AddSingleton(new OrdersHttpClient());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -31,7 +31,7 @@ namespace API_Gateway.Controllers
         public async Task<IActionResult> GetCustomers()
         {
             var customersResponse = await _client.GetAsync(_client.BaseAddress);
-            var customers = Serializer.Deserialize<IEnumerable<CustomerDto>>(await customersResponse.Content.ReadAsStreamAsync());
+            var customers = Serializer.DeserializeItems<CustomerDto>(await customersResponse.Content.ReadAsStreamAsync(), PrefixStyle.None, -1);
             if (customers != null)
                 return Ok(customers);
             else
@@ -54,9 +54,9 @@ namespace API_Gateway.Controllers
         public async Task<IActionResult> CreateCustomer([FromBody]CustomerToCreateDto customer)
         {
             //if (customer == null) return BadRequest();
-            //var customerProtoStream = new Stream();
-            //    Serializer.Serialize(customer,)
-            //var customerResponse = await _client.PostAsync(_client.BaseAddress, );
+            //Stream customerProtoStream = null;
+            //Serializer.Serialize(customerProtoStream, customer);
+            //var customerResponse = await _client.PostAsync(_client.BaseAddress, new HttpContent(customerProtoStream));
             return Ok();
         }
 
