@@ -1,10 +1,9 @@
-﻿using System;
+﻿
 
 namespace OrdersDtoTypes.Models
 {
-    public class OrderToCreateDto
+    public class OrderToCreateDto : OrderBaseDto
     {
-        public DateTime DatePlaced { get; set; }
-        public int CustomerId { get; set; }
+
     }
 }

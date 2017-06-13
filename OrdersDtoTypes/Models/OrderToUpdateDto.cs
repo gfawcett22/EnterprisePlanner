@@ -1,10 +1,10 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace OrdersDtoTypes.Models
 {
-    public class OrderToUpdateDto
+    public class OrderToUpdateDto : OrderBaseDto
     {
-        public DateTime DatePlaced { get; set; }
-        public int CustomerId { get; set; }
+        
     }
 }
