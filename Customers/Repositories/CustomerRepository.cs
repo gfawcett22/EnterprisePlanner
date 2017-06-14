@@ -34,9 +34,11 @@ namespace Customers.Repositories
             return _context.Customers.FirstOrDefault(c => c.Id == customerId);
         }
 
-        public IQueryable<Customer> GetCustomers()
+        public IQueryable<Customer> GetCustomers(PagingParameters pagingParameters)
         {
-            return _context.Customers;
+            return _context.Customers
+                .Skip(pagingParameters.PageSize * (pagingParameters.PageNumber - 1))
+                .Take(pagingParameters.PageSize);
         }
 
         public IQueryable<Customer> GetCustomers(IEnumerable<int> customerIds)

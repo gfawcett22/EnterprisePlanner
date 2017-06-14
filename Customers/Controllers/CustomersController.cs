@@ -7,6 +7,7 @@ using Customers.Repositories;
 using AutoMapper;
 using Customers.Entities;
 using CustomersDtoTypes.Models;
+using WebApiHelpers;
 
 namespace Customers.Controllers
 {
@@ -56,6 +57,12 @@ namespace Customers.Controllers
             try
             {
                 if (customerToCreate == null) return BadRequest();
+
+                if(!ModelState.IsValid())
+                {
+                    return new UnprocessableEntityObjectResult(ModelState);
+                }
+
                 var customerEntity = Mapper.Map<Customer>(customerToCreate);
                 _repo.AddCustomer(customerEntity);
                 if (!_repo.Save())
@@ -75,6 +82,11 @@ namespace Customers.Controllers
         public IActionResult UpdateCustomer(int id, [FromBody]CustomerToUpdateDto customerToUpdate)
         {
             if (customerToUpdate == null) return BadRequest();
+
+            if(!ModelState.IsValid())
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
 
             var customerFromRepo = _repo.GetCustomer(id);
             if (customerFromRepo == null) return NotFound();

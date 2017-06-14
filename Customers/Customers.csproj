@@ -30,6 +30,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CustomerDtoTypes\CustomersDtoTypes.csproj" />
+    <ProjectReference Include="..\WebApiHelpers\WebApiHelpers.csproj" />
+
   </ItemGroup>
 
 </Project>
