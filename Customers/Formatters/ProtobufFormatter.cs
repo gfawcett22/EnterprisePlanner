@@ -10,23 +10,37 @@ namespace Customers.Formatters
     {
         private static Lazy<RuntimeTypeModel> model = new Lazy<RuntimeTypeModel>(CreateTypeModel);
 
+        static readonly MediaTypeHeaderValue ProtoMediaType = MediaTypeHeaderValue.Parse("application/x-protobuf");
+
         public static RuntimeTypeModel Model => model.Value;
 
         public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
         {
-            var type = context.ModelType;
-            var request = context.HttpContext.Request;
-            MediaTypeHeaderValue requestContentType = null;
-            MediaTypeHeaderValue.TryParse(request.ContentType, out requestContentType);
+            try
+            {
+                var type = context.ModelType;
+                var request = context.HttpContext.Request;
+                MediaTypeHeaderValue requestContentType = null;
+                MediaTypeHeaderValue.TryParse(request.ContentType, out requestContentType);
 
 
-            object result = Model.Deserialize(context.HttpContext.Request.Body, null, type);
-            return InputFormatterResult.SuccessAsync(result);
+                object result = Model.Deserialize(context.HttpContext.Request.Body, null, type);
+                return InputFormatterResult.SuccessAsync(result);
+            }
+            catch(Exception ex)
+            {
+                return InputFormatterResult.FailureAsync();
+            }
         }
 
         public override bool CanRead(InputFormatterContext context)
         {
             return true;
+            //var request = context.HttpContext.Request;
+            //MediaTypeHeaderValue requestContentType = null;
+            //MediaTypeHeaderValue.TryParse(request.ContentType, out requestContentType);
+
+            //return requestContentType != null && requestContentType.IsSubsetOf(ProtoMediaType);
         }
 
 

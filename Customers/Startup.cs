@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Customers.Contexts;
 using Customers.Repositories;
 using Customers.Entities;
+using Customers.Formatters;
 using CustomersDtoTypes.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,11 @@ namespace Customers
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc(cfg =>
+            {
+                cfg.InputFormatters.Add(new ProtobufInputFormatter());
+                cfg.OutputFormatters.Add(new ProtobufOutputFormatter());
+            });
             var connectionString = Configuration["connectionStrings:DefaultConnection"];
             services.AddDbContext<CustomersDbContext>(o => o.UseSqlServer(connectionString));
 

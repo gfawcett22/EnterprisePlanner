@@ -53,11 +53,13 @@ namespace API_Gateway.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCustomer([FromBody]CustomerToCreateDto customer)
         {
-            //if (customer == null) return BadRequest();
-            //Stream customerProtoStream = null;
-            //Serializer.Serialize(customerProtoStream, customer);
-            //var customerResponse = await _client.PostAsync(_client.BaseAddress, new HttpContent(customerProtoStream));
-            return Ok();
+            if (customer == null) return BadRequest();
+            MemoryStream customerProtoStream = new MemoryStream();
+            Serializer.Serialize(customerProtoStream, customer);
+            ByteArrayContent bArray = new ByteArrayContent(customerProtoStream.ToArray());
+            //var customerProtoStreamArray = Convert.ToBase64String(customerProtoStream.ToArray());
+            var customerResponse = await _client.PostAsync(_client.BaseAddress, bArray);
+            return Ok(customerResponse);
         }
 
         // PUT api/values/5
