@@ -1,8 +1,9 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBindings;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 
-namespace WebApiHelpers
+namespace Customers.Helpers
 {
     public class UnprocessableEntityObjectResult : ObjectResult 
     {

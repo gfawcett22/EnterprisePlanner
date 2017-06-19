@@ -31,14 +31,19 @@ namespace API_Gateway.Controllers
         public async Task<IActionResult> GetCustomers()
         {
             var customersResponse = await _client.GetAsync(_client.BaseAddress);
-            var customers = Serializer.DeserializeItems<CustomerDto>(await customersResponse.Content.ReadAsStreamAsync(), PrefixStyle.None, -1);
-            if (customers != null)
-                return Ok(customers);
+            if (customersResponse.IsSuccessStatusCode)
+            {
+                var customers = Serializer.DeserializeItems<CustomerDto>(await customersResponse.Content.ReadAsStreamAsync(), PrefixStyle.None, -1);
+                if (customers != null)
+                    return Ok(customers);
+                else
+                    return StatusCode(500);
+            }
             else
                 return StatusCode(500);
         }
 
-        [HttpGet("{id}", Name ="GetCustomer")]
+        [HttpGet("{id}", Name = "GetCustomer")]
         public async Task<IActionResult> GetCustomer(int id)
         {
             Uri uri = new Uri(_client.BaseAddress, id.ToString());
