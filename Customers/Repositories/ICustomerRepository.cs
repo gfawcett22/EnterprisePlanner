@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Customers.Entities;
+using CustomersDtoTypes.Helpers;
 using WebApiHelpers;
 
 namespace Customers.Repositories
 {
     public interface ICustomerRepository
     {
-			IQueryable<Customer> GetCustomers(PagingParameters pagingParameters);
+			IQueryable<Customer> GetCustomers(CustomersPagingParameters pagingParameters);
 			Customer GetCustomer(int customerId);
             IQueryable<Customer> GetCustomers(IEnumerable<int> customerIds);
 			void AddCustomer(Customer customer);

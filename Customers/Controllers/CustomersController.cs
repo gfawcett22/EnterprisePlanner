@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Customers.Repositories;
 using AutoMapper;
 using Customers.Entities;
+using Customers.Helpers;
 using CustomersDtoTypes.Models;
-using WebApiHelpers;
+using CustomersDtoTypes.Helpers;
 
 namespace Customers.Controllers
 {
@@ -22,11 +23,11 @@ namespace Customers.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCustomers()
+        public IActionResult GetCustomers(CustomersPagingParameters customerParams)
         {
             try
             {
-                var customersFromRepo = _repo.GetCustomers().ToList();
+                var customersFromRepo = _repo.GetCustomers(customerParams).ToList();
                 var customers = Mapper.Map<IEnumerable<CustomerDto>>(customersFromRepo);
                 return Ok(customers);
             }
@@ -58,7 +59,7 @@ namespace Customers.Controllers
             {
                 if (customerToCreate == null) return BadRequest();
 
-                if(!ModelState.IsValid())
+                if(!ModelState.IsValid)
                 {
                     return new UnprocessableEntityObjectResult(ModelState);
                 }

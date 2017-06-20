@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Customers.Entities;
 using System.Linq;
 using Customers.Contexts;
+using CustomersDtoTypes.Helpers;
+using WebApiHelpers;
 
 namespace Customers.Repositories
 {
@@ -34,7 +36,7 @@ namespace Customers.Repositories
             return _context.Customers.FirstOrDefault(c => c.Id == customerId);
         }
 
-        public IQueryable<Customer> GetCustomers(PagingParameters pagingParameters)
+        public IQueryable<Customer> GetCustomers(CustomersPagingParameters pagingParameters)
         {
             return _context.Customers
                 .Skip(pagingParameters.PageSize * (pagingParameters.PageNumber - 1))

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using API_Gateway.HttpClients;
+using CustomersDtoTypes.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using CustomersDtoTypes.Models;
 using ProtoBuf;
@@ -28,9 +29,13 @@ namespace API_Gateway.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCustomers()
+        public async Task<IActionResult> GetCustomers(CustomersPagingParameters customerParams)
         {
-            var customersResponse = await _client.GetAsync(_client.BaseAddress);
+            UriBuilder uriBuilder = new UriBuilder(_client.BaseAddress);
+            //uriBuilder.Query += customerParams;
+
+            var customersResponse = await _client.GetAsync(_client.BaseAddress, bArray);
+
             if (customersResponse.IsSuccessStatusCode)
             {
                 var customers = Serializer.DeserializeItems<CustomerDto>(await customersResponse.Content.ReadAsStreamAsync(), PrefixStyle.None, -1);
