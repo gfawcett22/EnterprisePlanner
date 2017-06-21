@@ -1,6 +1,4 @@
-FROM microsoft/aspnetcore-build:1.1
-ARG source
+FROM microsoft/aspnetcore:1.1
 WORKDIR /app
-EXPOSE 5001
 COPY . .
 ENTRYPOINT ["dotnet", "Customers.dll"]

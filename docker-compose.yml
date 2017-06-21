@@ -2,18 +2,28 @@ version: '2'
 
 services:
   customers:
-    image: customers
+    image: customers    
     build:
-      context: ./Customers
+      context: ./Customers/publish
       dockerfile: Dockerfile
+    ports:
+      - "80:5001"
+
+  api_gateway:
+    image: api_gateway
+    build:
+      context: ./API_Gateway/publish
+      dockerfile: Dockerfile
+    ports:
+      - "80:5000"
+
+  
 
   orders:
     image: orders
     build:
-      context: ./Orders
+      context: ./Orders/publish
       dockerfile: Dockerfile
-  api_gateway:
-    image: api_gateway
-    build:
-      context: ./API_Gateway
-      dockerfile: Dockerfile
+    ports:
+      - "80:5002"
+ 

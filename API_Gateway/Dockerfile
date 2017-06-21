@@ -1,6 +1,5 @@
-FROM microsoft/aspnetcore-build:1.1
-ARG source
+FROM microsoft/aspnetcore:1.1
 WORKDIR /app
-EXPOSE 5000
 COPY . .
+EXPOSE 80
 ENTRYPOINT ["dotnet", "API_Gateway.dll"]
