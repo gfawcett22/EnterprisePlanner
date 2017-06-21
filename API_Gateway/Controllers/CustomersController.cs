@@ -9,6 +9,7 @@ using API_Gateway.HttpClients;
 using CustomersDtoTypes.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using CustomersDtoTypes.Models;
+using WebApiHelpers;
 using ProtoBuf;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -31,33 +32,37 @@ namespace API_Gateway.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomers(CustomersPagingParameters customerParams)
         {
-            UriBuilder uriBuilder = new UriBuilder(_client.BaseAddress);
-            //uriBuilder.Query += customerParams;
+            //UriBuilder uriBuilder = new UriBuilder(_client.BaseAddress);
+            var uri = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(_client.BaseAddress.ToString(),
+                    ObjectToDictionaryConverter.ConvertToDictionary(customerParams));
 
-            var customersResponse = await _client.GetAsync(_client.BaseAddress, bArray);
+            var customerResponse = await _client.GetAsync(uri);
 
-            if (customersResponse.IsSuccessStatusCode)
+            if (customerResponse.IsSuccessStatusCode)
             {
-                var customers = Serializer.DeserializeItems<CustomerDto>(await customersResponse.Content.ReadAsStreamAsync(), PrefixStyle.None, -1);
+                var customersStream = await customerResponse.Content.ReadAsStreamAsync();
+                var customers = Serializer.DeserializeItems<CustomerDto>(customersStream, PrefixStyle.Base128, 1);
                 if (customers != null)
                     return Ok(customers);
                 else
-                    return StatusCode(500);
+                    return StatusCode((int)customerResponse.StatusCode);
             }
             else
-                return StatusCode(500);
+                return StatusCode((int)customerResponse.StatusCode);
         }
 
         [HttpGet("{id}", Name = "GetCustomer")]
         public async Task<IActionResult> GetCustomer(int id)
         {
-            Uri uri = new Uri(_client.BaseAddress, id.ToString());
-            var customerResponse = await _client.GetAsync(uri);
+            UriBuilder uriBuilder = new UriBuilder(_client.BaseAddress);
+            uriBuilder.Path +=  "/" + id;
+
+            var customerResponse = await _client.GetAsync(uriBuilder.Uri);
             var customer = Serializer.Deserialize<CustomerDto>(await customerResponse.Content.ReadAsStreamAsync());
             if (customer != null)
                 return Ok(customer);
             else
-                return StatusCode(500);
+                return StatusCode((int)customerResponse.StatusCode);
         }
 
         [HttpPost]
@@ -67,9 +72,12 @@ namespace API_Gateway.Controllers
             MemoryStream customerProtoStream = new MemoryStream();
             Serializer.Serialize(customerProtoStream, customer);
             ByteArrayContent bArray = new ByteArrayContent(customerProtoStream.ToArray());
-            //var customerProtoStreamArray = Convert.ToBase64String(customerProtoStream.ToArray());
             var customerResponse = await _client.PostAsync(_client.BaseAddress, bArray);
-            return Ok(customerResponse);
+            if (customerResponse.IsSuccessStatusCode)
+            {
+                return Ok(customerResponse);
+            }
+            return StatusCode((int)customerResponse.StatusCode);
         }
 
         // PUT api/values/5
@@ -80,8 +88,16 @@ namespace API_Gateway.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            UriBuilder uriBuilder = new UriBuilder(_client.BaseAddress);
+            uriBuilder.Path += "/" + id;
+            var customerResponse = await _client.DeleteAsync(uriBuilder.Uri);
+            if (customerResponse.IsSuccessStatusCode)
+            {
+                return NoContent();
+            }
+            return StatusCode((int)customerResponse.StatusCode);
         }
     }
 }

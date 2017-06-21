@@ -84,7 +84,7 @@ namespace Customers.Controllers
         {
             if (customerToUpdate == null) return BadRequest();
 
-            if(!ModelState.IsValid())
+            if(!ModelState.IsValid)
             {
                 return new UnprocessableEntityObjectResult(ModelState);
             }

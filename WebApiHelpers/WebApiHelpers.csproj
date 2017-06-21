@@ -1,8 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Reflection.TypeExtensions">
+      <HintPath>C:\Users\User\.nuget\packages\system.reflection.typeextensions\4.3.0\ref\netstandard1.3\System.Reflection.TypeExtensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 
 </Project>
