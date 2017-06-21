@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 using ProtoBuf.Meta;
 
-namespace API_Gateway.Formatters
+namespace WebApiHelpers.Formatters
 {
     public class ProtobufInputFormatter : InputFormatter
     {

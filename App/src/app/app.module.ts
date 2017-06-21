@@ -26,8 +26,7 @@ import { RoutingModule } from 'app/routing.module';
     MdButtonModule
   ],
   providers: [
-    {provide: 'CUSTOMERS_API_URL', useValue: 'http://localhost:5000/api/customers'}, // change depending on api location
-    {provide: 'ORDERS_API_URL', useValue: 'http://localhost:5001/api/orders'} // change depending on api location
+    {provide: 'API_URL', useValue: 'http://localhost:5000/api/'}
 
   ],
   bootstrap: [AppComponent]

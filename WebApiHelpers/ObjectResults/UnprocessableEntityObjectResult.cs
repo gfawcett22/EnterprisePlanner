@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 
-namespace Customers.Helpers
+namespace WebApiHelpers.ObjectResults
 {
     public class UnprocessableEntityObjectResult : ObjectResult 
     {

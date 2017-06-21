@@ -13,7 +13,7 @@ import { Customer } from "app/customers/models/customer.interface";
 
 @Injectable()
 export class CustomerService extends BaseHttpService {
-    constructor(private http: Http, @Inject('CUSTOMER_API_URL') private customerApiUrl: string) { super(); }
+    constructor(private http: Http, @Inject('API_URL') private customerApiUrl: string) { super(); }
 
     getCustomers(): Observable<Customer[]> {
         return this.http.get(this.customerApiUrl)

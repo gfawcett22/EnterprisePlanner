@@ -6,8 +6,8 @@ using Microsoft.Extensions.Logging;
 using Customers.Contexts;
 using Customers.Repositories;
 using Customers.Entities;
-using Customers.Formatters;
 using CustomersDtoTypes.Models;
+using WebApiHelpers.Formatters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,7 +37,7 @@ namespace Customers
                 cfg.OutputFormatters.Add(new ProtobufOutputFormatter());
             });
             var connectionString = Configuration["connectionStrings:DefaultConnection"];
-            services.AddDbContext<CustomersDbContext>(o => o.UseSqlServer(connectionString));
+            services.AddDbContext<CustomersDbContext>(o => o.UseInMemoryDatabase());
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 

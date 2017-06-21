@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CustomerListComponent } from './customer-list.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { CustomerItemComponent } from './customer-item.component';
 
 @NgModule({
     imports: [
@@ -12,7 +13,7 @@ import { RouterModule } from '@angular/router';
         ])
     ],
     exports: [],
-    declarations: [CustomerListComponent],
+    declarations: [CustomerListComponent, CustomerItemComponent],
     providers: [
 
     ],

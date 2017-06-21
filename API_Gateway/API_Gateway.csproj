@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
-    <DockerComposeProjectPath>..\EnterprisePlanner\docker-compose.dcproj</DockerComposeProjectPath>
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
 
@@ -31,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CustomerDtoTypes\CustomersDtoTypes.csproj" />
     <ProjectReference Include="..\OrdersDtoTypes\OrdersDtoTypes.csproj" />
+    <ProjectReference Include="..\WebApiHelpers\WebApiHelpers.csproj" />
   </ItemGroup>
 
 </Project>

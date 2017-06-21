@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomersDtoTypes", "Custom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiHelpers", "WebApiHelpers\WebApiHelpers.csproj", "{7AAAD077-415E-4A50-8285-603D5C7DD4DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiHelpersTypes", "WebApiHelpersTypes\WebApiHelpersTypes.csproj", "{BCB73B68-6EEA-4E6A-B338-374D329A7F80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,18 @@ Global
 		{7AAAD077-415E-4A50-8285-603D5C7DD4DA}.Release|x64.Build.0 = Release|Any CPU
 		{7AAAD077-415E-4A50-8285-603D5C7DD4DA}.Release|x86.ActiveCfg = Release|Any CPU
 		{7AAAD077-415E-4A50-8285-603D5C7DD4DA}.Release|x86.Build.0 = Release|Any CPU
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Debug|x64.ActiveCfg = Debug|x64
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Debug|x64.Build.0 = Debug|x64
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Debug|x86.ActiveCfg = Debug|x86
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Debug|x86.Build.0 = Debug|x86
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Release|x64.ActiveCfg = Release|x64
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Release|x64.Build.0 = Release|x64
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Release|x86.ActiveCfg = Release|x86
+		{BCB73B68-6EEA-4E6A-B338-374D329A7F80}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

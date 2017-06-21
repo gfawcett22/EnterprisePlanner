@@ -1,4 +1,4 @@
-namespace WebApiHelpers
+namespace WebApiHelpersTypes.Helpers
 {
     public class PagingParameters
     {

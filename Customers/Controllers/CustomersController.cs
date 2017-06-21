@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Customers.Repositories;
 using AutoMapper;
 using Customers.Entities;
-using Customers.Helpers;
+using WebApiHelpers.ObjectResults;
 using CustomersDtoTypes.Models;
 using CustomersDtoTypes.Helpers;
 

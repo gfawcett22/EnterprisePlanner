@@ -9,7 +9,7 @@ using API_Gateway.HttpClients;
 using CustomersDtoTypes.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using CustomersDtoTypes.Models;
-using WebApiHelpers;
+using WebApiHelpersTypes.Helpers;
 using ProtoBuf;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -43,7 +43,7 @@ namespace API_Gateway.Controllers
                 var customersStream = await customerResponse.Content.ReadAsStreamAsync();
                 var customers = Serializer.DeserializeItems<CustomerDto>(customersStream, PrefixStyle.Base128, 1);
                 if (customers != null)
-                    return Ok(customers);
+                    return StatusCode((int)customerResponse.StatusCode, customers);
                 else
                     return StatusCode((int)customerResponse.StatusCode);
             }

@@ -9,6 +9,7 @@ using Orders.Contexts;
 using Orders.Entities;
 using Orders.Models;
 using Orders.Repositories;
+using WebApiHelpers.Formatters;
 
 namespace Orders
 {
@@ -30,9 +31,13 @@ namespace Orders
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc(cfg =>
+            {
+                cfg.InputFormatters.Add(new ProtobufInputFormatter());
+                cfg.OutputFormatters.Add(new ProtobufOutputFormatter());
+            });
             var connectionString = Configuration["connectionStrings:DefaultConnection"];
-            services.AddDbContext<OrdersDbContext>(o => o.UseSqlServer(connectionString));
+            services.AddDbContext<OrdersDbContext>(o => o.UseInMemoryDatabase());
 
             services.AddScoped<IOrderRepository, OrderRepository>();
         }

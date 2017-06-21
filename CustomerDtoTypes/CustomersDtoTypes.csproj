@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebApiHelpers\WebApiHelpers.csproj" />
+    <ProjectReference Include="..\WebApiHelpersTypes\WebApiHelpersTypes.csproj" />
   </ItemGroup>
 
 </Project>
