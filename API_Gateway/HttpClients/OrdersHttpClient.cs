@@ -10,7 +10,7 @@ namespace API_Gateway.HttpClients
     {
         public OrdersHttpClient()
         {
-            this.BaseAddress = new Uri("http://localhost:5002/api/orders");
+            this.BaseAddress = new Uri("http://orders:5002/api/orders");
         }
     }
 }
