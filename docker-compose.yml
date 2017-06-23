@@ -4,26 +4,26 @@ services:
   customers:
     image: customers    
     build:
-      context: ./Customers/publish
+      context: ./Customers
       dockerfile: Dockerfile
     ports:
-      - "80:5001"
+      - "5001:5001"
 
   api_gateway:
     image: api_gateway
     build:
-      context: ./API_Gateway/publish
+      context: ./API_Gateway
       dockerfile: Dockerfile
     ports:
-      - "80:5000"
+      - "5000:5000"
 
   
 
   orders:
     image: orders
     build:
-      context: ./Orders/publish
+      context: ./Orders
       dockerfile: Dockerfile
     ports:
-      - "80:5002"
+      - "5002:5002"
  

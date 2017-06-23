@@ -17,7 +17,7 @@ namespace Customers
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
-                .UseUrls("http://localhost:5001")
+                .UseUrls("http://*:5001")
                 .Build();
 
             host.Run();

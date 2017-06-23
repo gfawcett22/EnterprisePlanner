@@ -16,7 +16,7 @@ namespace Orders
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:5002")
+                .UseUrls("http://*:5002")
                 .Build();
 
             host.Run();
