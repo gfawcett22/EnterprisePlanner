@@ -1,17 +1,14 @@
 namespace WebApiHelpersTypes.Helpers
 {
-    public class PagingParameters
+    public abstract class PagingParameters
     {
-        const int maxPageSize = 100;
+        const int MaxPageSize = 100;
         public int PageNumber { get; set; } = 1;
         private int _pageSize = 25;
         public int PageSize 
         {
-            get { return _pageSize; }
-            set
-            {
-                _pageSize = (value > maxPageSize) ? maxPageSize : value;
-            }
+            get => _pageSize;
+            set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
     }
 }

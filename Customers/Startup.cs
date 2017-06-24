@@ -65,6 +65,9 @@ namespace Customers
                 });
             }
 
+            var custContext = app.ApplicationServices.GetService<CustomersDbContext>();
+            CustomersDbSeeder.SeedInMemoryDatabase(custContext);
+
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Customer, CustomerDto>();
