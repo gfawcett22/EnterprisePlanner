@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Customer } from "app/customers/models/customer.interface";
 
 @Component({
   selector: 'customer-item',
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class CustomerItemComponent implements OnInit {
-
+  @Input() customer: Customer;
   constructor() { }
 
   ngOnInit() {
