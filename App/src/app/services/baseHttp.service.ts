@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Response } from '@angular/http';
 import 'rxjs/add/observable/throw';
 
-export abstract class BaseHttpService {
+export class BaseHttpService {
 
     constructor() { }
     protected extractData(response: Response) {
@@ -17,15 +17,19 @@ export abstract class BaseHttpService {
     }
 
     protected getQueryFromObject(obj: any): string {
-        let returnStr = "";        
+        console.log(obj);
+        let returnStr = "";
         if (typeof (obj) === "object") {
             let count = 0;
-            returnStr += "?"; 
             //loop through the object properties and add to string           
-            for (let prop in obj) {
-                if (count > 0) returnStr += "&";
-                if (obj.prop != "") returnStr += prop + "=" + obj.prop;
-                ++count;
+            for (let prop in obj) 
+            {
+                if (obj[prop] != undefined && obj[prop] !== "") {
+                    if (count === 0) returnStr += '?';
+                    else returnStr += '&'
+                    returnStr += `${prop}=${obj[prop]}`;
+                    ++count;
+                } 
             }
         }
         return returnStr;

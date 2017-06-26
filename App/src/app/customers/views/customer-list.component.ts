@@ -8,7 +8,14 @@ import { CustomerDetailComponent } from 'app/customers/views/customer-detail.com
 
 @Component({
     selector: 'customer-list',
-    templateUrl: './customer-list.component.html'
+    templateUrl: './customer-list.component.html',
+    styles: [
+        `
+        .mat-raised-button{
+            color: black;
+        }
+        `
+    ]
 })
 
 export class CustomerListComponent implements OnInit {
@@ -33,7 +40,6 @@ export class CustomerListComponent implements OnInit {
             pageNumber: this.pageNumberFilter,
             pageSize: this.pageSizeFilter
         };
-
         this.customerService.getCustomers(params)
             .subscribe(customers => this.customers = customers, err => console.log(err));
     }
@@ -42,7 +48,9 @@ export class CustomerListComponent implements OnInit {
         this.dialog.open(
             CustomerEditComponent,
             {
-                data: id
+                data: id,
+                height: '50%',
+                width: '60%'
             }
         );
     }

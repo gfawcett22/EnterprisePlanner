@@ -1,6 +1,16 @@
-import { Component, OnInit, Inject, ViewChildren, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    OnInit,
+    Output,
+    ViewChildren,
+} from '@angular/core';
 import { Customer } from 'app/customers/models/customer.interface';
-import { MD_DIALOG_DATA } from '@angular/material';
+import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
 import { CustomerService } from 'app/customers/services/customer.service';
 import { FormGroup, FormBuilder, Validators, FormControlName } from '@angular/forms';
 import { GenericValidator } from 'app/shared/generic-validator';
@@ -26,6 +36,7 @@ export class CustomerEditComponent implements OnInit, AfterViewInit {
 
     constructor( @Inject(MD_DIALOG_DATA) public data: any,
         public customerService: CustomerService,
+        public dialogRef: MdDialogRef<CustomerEditComponent>,
         private fb: FormBuilder) {
         this.validationMessages = {
             name: {
@@ -33,11 +44,11 @@ export class CustomerEditComponent implements OnInit, AfterViewInit {
                 maxlength: 'Product name cannot exceed 50 characters.'
             },
             address: {
-                required: 'Customer code is required.',
+                required: 'Customer address is required.',
                 maxlength: 'Address cannot exceed 100 characters'
             },
             business: {
-                required: 'Customer Business is required.',
+                required: 'Customer business is required.',
                 maxlength: 'Business cannot exceed 50 characters'
             }
         };
@@ -89,8 +100,12 @@ export class CustomerEditComponent implements OnInit, AfterViewInit {
         });
     }
 
-    deleteCustomer(): void {
+    deleteCustomer(id: number): void {
+        this.customerService.deleteCustomer(id)
+            .subscribe(() => this.dialogRef.close(), 
+                err => alert(`There was an error deleting customer ${id}, please try again.`));
 
+        //this.dialogRef.close();
     }
 
     saveCustomer(): void {

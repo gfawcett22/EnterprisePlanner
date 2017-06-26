@@ -1,8 +1,9 @@
 <md-toolbar color="primary">
-    <a [routerLink]="['/welcome']" ><span>Enterprise Planner</span></a>
+    <a [routerLink]="['/welcome']" style="color:white">Enterprise Planner</a>
     <div class="app-toolbar-filler"></div>
-
-    <button md-raised-button [routerLink]="['/customers']" >Customers</button>
-    <button md-raised-button [routerLink]="['/orders']" >Orders</button>
+    <div class="button-row">
+        <a md-button [routerLink]="['/customers']" >Customers</a>
+        <a md-button [routerLink]="['/orders']" >Orders</a>
+    </div>
 </md-toolbar>
 <router-outlet></router-outlet>

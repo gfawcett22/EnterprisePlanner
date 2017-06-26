@@ -1,52 +1,48 @@
-<div class='panel panel-primary'>
-    <div class='panel-heading'>
-        Customers
-    </div>
-    <div class='panel-body'>
-        <div class='table-responsive'>
-            <table class='table' *ngIf='customers && customers.length'>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Customer</th>
-                        <th>Address</th>
-                        <th>Business</th>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th>
-                            <md-input-container>
-                                <input mdInput [(ngModel)]="nameFilter" />
-                            </md-input-container>
-                        </th>
-                        <th>
-                            <md-input-container>
-                                <input mdInput [(ngModel)]="addressFilter" />
-                            </md-input-container>
-                        </th>
-                        <th>
-                            <md-input-container>
-                                <input mdInput [(ngModel)]="businessFilter" />
-                            </md-input-container>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor='let customer of customers'>
-                        <td>
-                            <a class="btn btn-primary" (click)="openEditDialog(customer.id)">
+<div>
+    <div class='table-responsive'>
+        <table class='table' *ngIf='customers && customers.length'>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Customer</th>
+                    <th>Address</th>
+                    <th>Business</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>
+                        <md-input-container>
+                            <input mdInput [(ngModel)]="nameFilter" placeholder="Name filter" (keyup)="getCustomers()" />
+                        </md-input-container>
+                    </th>
+                    <th>
+                        <md-input-container>
+                            <input mdInput [(ngModel)]="addressFilter" placeholder="Address filter" (keyup)="getCustomers()" />
+                        </md-input-container>
+                    </th>
+                    <th>
+                        <md-input-container>
+                            <input mdInput [(ngModel)]="businessFilter" placeholder="Business filter" (keyup)="getCustomers()" />
+                        </md-input-container>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let customer of customers'>
+                    <td>
+                        <button md-raised-button (click)="openEditDialog(customer.id)">
                                 Edit
-                            </a>
-                        </td>
-                        <td><a (click)="openDetailDialog(customer.id)">
+                        </button>
+                    </td>
+                    <td>
+                        <button md-button (click)="openDetailDialog(customer.id)">
                             {{customer.name}}
-                            </a>
-                        </td>
-                        <td>{{ customer.address }}</td>
-                        <td>{{ customer.business }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                        </button>
+                    </td>
+                    <td>{{ customer.address }}</td>
+                    <td>{{ customer.business }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

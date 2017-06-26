@@ -19,6 +19,7 @@ export class CustomerService extends BaseHttpService {
     constructor(private http: Http, @Inject('API_URL') private apiUrl: string) { super(); }
 
     getCustomers(params: CustomerPagingParameters): Observable<Customer[]> {
+        const url = this.customerApiUrl + super.getQueryFromObject(params);
         return this.http.get(this.customerApiUrl)
             .map(super.extractData)
             .catch(super.handleError);
@@ -28,6 +29,7 @@ export class CustomerService extends BaseHttpService {
         const url = `${this.customerApiUrl}/${id}`;
         return this.http.get(url)
             .map(super.extractData)
+            .do(customer => console.log(customer))
             .catch(super.handleError);
     }
 

@@ -1,6 +1,10 @@
 <div>
-    <div><span>Name</span><span>{{ customer.Name }}</span></div>
-    <div><span>Address</span><span>{{ customer.Address }}</span></div>
-    <div><span>Business</span><span>{{ customer.Business }}</span></div>
-    <div><button (click)="closeDialogEmit()">Cancel</button></div>
+    <div><span>Name</span><span>{{ customer?.Name }}</span></div>
+    <div><span>Address</span><span>{{ customer?.Address }}</span></div>
+    <div><span>Business</span><span>{{ customer?.Business }}</span></div>
+    <div>
+        <button md-dialog-close md-raised-button>
+            Cancel
+        </button>
+    </div>
 </div>

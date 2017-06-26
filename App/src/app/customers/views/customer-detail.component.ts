@@ -9,9 +9,8 @@ import { CustomerService } from 'app/customers/services/customer.service';
 })
 
 export class CustomerDetailComponent implements OnInit {
-
     customer: Customer;
-    @Output() closeDialog = new EventEmitter();
+
     constructor(@Inject(MD_DIALOG_DATA) public data: any, public customerService: CustomerService) { }
 
     ngOnInit() {
@@ -23,7 +22,4 @@ export class CustomerDetailComponent implements OnInit {
         return this.customerService.getCustomer(id).subscribe(customer => this.customer = customer);
     }
 
-    closeDialogEmit() {
-        this.closeDialog.emit();
-    }
 }
