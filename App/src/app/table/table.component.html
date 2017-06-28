@@ -1,3 +1,11 @@
-<p>
-  table works!
-</p>
+<table class="table">
+  <table-head [grid]="grid"
+              (create)="create.emit($event)"
+              (sort)="sort($event)"
+              (filter)="filter($event)">
+  </table-head>
+  <table-body [grid]="grid"
+              (edit)="edit.emit($event)"
+              (delete)="delete.emit($event)">
+  </table-body>
+</table>

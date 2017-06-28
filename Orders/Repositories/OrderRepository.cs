@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Orders.Contexts;
 using Orders.Entities;
+using OrdersDtoTypes.Helpers;
 
 namespace Orders.Repositories
 {
@@ -30,9 +31,14 @@ namespace Orders.Repositories
             return _context.Orders.FirstOrDefault(o => o.Id == orderId);
         }
 
-        public IQueryable<Order> GetOrders()
+        public IQueryable<Order> GetOrders(OrdersPagingParameters pagingParameters)
         {
-            return _context.Orders;
+            return _context.Orders
+                .Where(o => o.Id.ToString().Contains(pagingParameters.Id.ToString()) 
+                        || o.CustomerId.ToString().Contains(pagingParameters.CustomerId.ToString())
+                        || o.DatePlaced == pagingParameters.DatePlaced)
+                .Skip(pagingParameters.PageSize * (pagingParameters.PageNumber - 1))
+                .Take(pagingParameters.PageSize);
         }
 
         public IQueryable<Order> GetOrders(IEnumerable<int> orderIds)

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Orders.Entities;
 using Orders.Repositories;
 using Orders.Models;
+using OrdersDtoTypes.Helpers;
+using WebApiHelpers.ObjectResults;
 
 namespace Orders.Controllers
 {
@@ -21,11 +23,11 @@ namespace Orders.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetOrders()
+        public IActionResult GetOrders(OrdersPagingParameters ordersParams)
         {
             try
             {
-                var ordersFromRepo = _repo.GetOrders();
+                var ordersFromRepo = _repo.GetOrders(ordersParams);
                 var orders = Mapper.Map<IEnumerable<OrderDto>>(ordersFromRepo);
                 return Ok(orders);
             }
@@ -56,6 +58,12 @@ namespace Orders.Controllers
             try
             {
                 if (orderToCreate == null) return BadRequest();
+
+                if (!ModelState.IsValid)
+                {
+                    return new UnprocessableEntityObjectResult(ModelState);
+                }
+
                 var orderEntity = Mapper.Map<Order>(orderToCreate);
                 _repo.AddOrder(orderEntity);
                 if (!_repo.Save())
@@ -75,6 +83,11 @@ namespace Orders.Controllers
         public IActionResult UpdateOrder(int id, [FromBody]OrderToUpdateDto orderToUpdate)
         {
             if (orderToUpdate == null) return BadRequest();
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
 
             var orderFromRepo = _repo.GetOrder(id);
             if (orderFromRepo == null) return NotFound();

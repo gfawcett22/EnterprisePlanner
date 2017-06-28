@@ -1,0 +1,10 @@
+:host {
+    min-height: .01%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    max-width:100%;
+    margin-bottom: 20px;
+}
