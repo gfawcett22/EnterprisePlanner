@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Cell } from "app/lib/cell";
+import { Cell } from "../lib/cell";
 
 @Component({
   selector: 'table-row',
   styles: [],
   template: `
     <tr>
-      <td *ngFor="let cell of cells">
+      <th *ngFor="let cell of cells">
         <table-cell [cell]="cell"></table-cell>
-      </td>
+      </th>
     <tr>
   `   
 })

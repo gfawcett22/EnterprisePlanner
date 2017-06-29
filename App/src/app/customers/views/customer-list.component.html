@@ -1,48 +1,10 @@
-<div>
-    <div class='table-responsive'>
-        <table class='table' *ngIf='customers && customers.length'>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Customer</th>
-                    <th>Address</th>
-                    <th>Business</th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th>
-                        <md-input-container>
-                            <input mdInput [(ngModel)]="nameFilter" placeholder="Name filter" (keyup)="getCustomers()" />
-                        </md-input-container>
-                    </th>
-                    <th>
-                        <md-input-container>
-                            <input mdInput [(ngModel)]="addressFilter" placeholder="Address filter" (keyup)="getCustomers()" />
-                        </md-input-container>
-                    </th>
-                    <th>
-                        <md-input-container>
-                            <input mdInput [(ngModel)]="businessFilter" placeholder="Business filter" (keyup)="getCustomers()" />
-                        </md-input-container>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor='let customer of customers'>
-                    <td>
-                        <button md-raised-button (click)="openEditDialog(customer.id)">
-                                Edit
-                        </button>
-                    </td>
-                    <td>
-                        <button md-button (click)="openDetailDialog(customer.id)">
-                            {{customer.name}}
-                        </button>
-                    </td>
-                    <td>{{ customer.address }}</td>
-                    <td>{{ customer.business }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class='table-resposive'>
+    <app-table [settings]="settings"
+               (edit)="openEditDialog($event)"
+               (delete)="openEditDialog($event)"
+               (create)="openEditDialog($event)"
+               (filter)="openEditDialog($event)"
+               (sort)="openEditDialog($event)">
+    </app-table>
 </div>
+               

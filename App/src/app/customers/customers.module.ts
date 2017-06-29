@@ -1,3 +1,4 @@
+import { TableModule } from '../table/table.module';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { RouterModule } from '@angular/router';
@@ -15,7 +16,8 @@ import { CustomerService } from 'app/customers/services/customer.service';
             {path: '', component: CustomerListComponent},
             {path: ':id', component: CustomerDetailComponent},
             {path: ':id/edit', component: CustomerEditComponent}
-        ])
+        ]),
+        TableModule
     ],
     exports: [
         CustomerListComponent

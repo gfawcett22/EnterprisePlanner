@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Grid } from "app/lib/grid";
+import { Grid } from "../lib/grid";
 
 @Component({
   selector: 'table-head',

@@ -1,17 +1,16 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TableSettings } from "app/lib/table-settings";
-import { deepExtend } from "app/lib/helpers";
-import { Grid } from "app/lib/grid";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ITableSettings } from "./lib/interfaces/ITableSettings";
+import { deepExtend } from "./lib/helpers";
+import { Grid } from "./lib/grid";
 
 @Component({
-  selector: 'table',
+  selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnInit {
 
-  @Input() settings: TableSettings;
+  @Input() settings: ITableSettings;
 
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
@@ -22,9 +21,8 @@ export class TableComponent implements OnInit {
   tableClass: string;
 
   grid: Grid;
-  defaultSettings: TableSettings = {
+  defaultSettings: ITableSettings = {
     columns: [],
-    sortable: false,
     sortColumn: '',
     showActionButtons: true,
     rows: []

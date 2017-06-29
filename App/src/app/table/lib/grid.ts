@@ -1,19 +1,19 @@
-import { TableSettings } from './table-settings';
+import { ITableSettings } from './interfaces/ITableSettings';
 
-import { DataSet } from "app/lib/data-set";
-import { getDeepFromObject, Deferred } from "app/lib/helpers";
-import { Column } from "app/lib/column";
-import { Row } from "app/lib/row";
+import { DataSet } from "./data-set";
+import { getDeepFromObject, Deferred } from "./helpers";
+import { Column } from "./column";
+import { Row } from "./row";
 
 export class Grid {
-    settings: TableSettings;
+    settings: ITableSettings;
     dataSet: DataSet;
 
     constructor(settings: any) {
         this.setSettings(settings);
     }
 
-    setSettings(settings: TableSettings) {
+    setSettings(settings: ITableSettings) {
         this.settings = settings;
         this.dataSet = new DataSet([], this.getSetting('columns'));
     }

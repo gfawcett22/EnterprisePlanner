@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { CustomerEditComponent } from 'app/customers/views/customer-edit.component';
 import { CustomerDetailComponent } from 'app/customers/views/customer-detail.component';
+import { ITableSettings } from "app/lib/interfaces/ITableSettings";
 
 @Component({
     selector: 'customer-list',
@@ -26,6 +27,17 @@ export class CustomerListComponent implements OnInit {
     pageNumberFilter = 1;
     pageSizeFilter = 25;
 
+    settings: ITableSettings = {
+        columns: [
+            {title: 'Name', sortable: true, sortDirection: 'asc', filterable: true, currentSort: false},
+            {title: 'Address', sortable: true, sortDirection: 'asc', filterable: true, currentSort: false},
+            {title: 'Business', sortable: true, sortDirection: 'asc', filterable: true, currentSort: false}
+        ],
+        sortColumn: 'Name',
+        showActionButtons: true,
+        rows: this.customers
+    };
+
     constructor(private customerService: CustomerService, public dialog: MdDialog) { }
 
     ngOnInit() {
@@ -45,6 +57,7 @@ export class CustomerListComponent implements OnInit {
     }
 
     openEditDialog(id: number) {
+        debugger;
         this.dialog.open(
             CustomerEditComponent,
             {
@@ -56,6 +69,7 @@ export class CustomerListComponent implements OnInit {
     }
 
     openDetailDialog(id: number) {
+        debugger;
         this.dialog.open(
             CustomerDetailComponent,
             {

@@ -1,1 +1,9 @@
-<tr>
+<tr thead-titles-row
+    [grid]="grid"
+    (sort)="sort.emit($event)">
+</tr>
+<tr thead-filters-row
+    [grid]="grid"
+    (filter)="filter.emit($event)"
+    (create)="create.emit($event)">
+</tr>

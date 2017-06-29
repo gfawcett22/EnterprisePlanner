@@ -1,8 +1,7 @@
-import { Column } from "app/lib/column";
-import { Row } from "app/lib/row";
+import { Column } from "./column";
+import { Row } from "./row";
 
 export class DataSet {
-    newRow: Row;
 
     protected data: Array<any> = [];
     protected columns: Array<Column> = [];
