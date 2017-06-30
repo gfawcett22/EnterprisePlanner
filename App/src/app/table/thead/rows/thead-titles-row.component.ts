@@ -8,8 +8,7 @@ import { Grid } from "../../lib/grid";
       [style.width]="column.width" >
       <column-title [column]="column" (sort)="sort.emit($event)"></column-title>
     </th>
-  `,
-  styles: []
+  `
 })
 export class TheadTitlesRowComponent implements OnInit {
 

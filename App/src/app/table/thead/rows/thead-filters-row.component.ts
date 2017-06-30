@@ -7,8 +7,7 @@ import { Column } from "../../lib/column";
   selector: '[thead-filters-row]',
   template: `
     <th *ngFor="let column of grid.getColumns()" >
-      <table-filter [source]="source"
-                    [column]="column"
+      <table-filter [column]="column"
                     (filter)="filter.emit($event)">
       </table-filter>
     </th>

@@ -1,6 +1,6 @@
-import { Cell } from "app/lib/cell";
-import { Column } from "app/lib/column";
-import { DataSet } from "app/lib/data-set";
+import { Cell } from "./cell";
+import { Column } from "./column";
+import { DataSet } from "./data-set";
 
 export class Row {
     cells: Array<Cell> = [];

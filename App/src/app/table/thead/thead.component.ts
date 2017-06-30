@@ -6,7 +6,7 @@ import { Grid } from "../lib/grid";
   templateUrl: './thead.component.html',
   styles: []
 })
-export class TheadComponent implements OnInit {
+export class THeadComponent implements OnInit {
 
   @Input() grid: Grid;
 
@@ -17,6 +17,7 @@ export class TheadComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.grid);
   }
 
 }

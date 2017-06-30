@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Column } from 'app/lib/column';
+import { Column } from '../../../lib/column';
 
 @Component({
   selector: 'table-title',

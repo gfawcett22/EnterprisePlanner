@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { CustomerEditComponent } from 'app/customers/views/customer-edit.component';
 import { CustomerDetailComponent } from 'app/customers/views/customer-detail.component';
-import { ITableSettings } from "app/lib/interfaces/ITableSettings";
+import { ITableSettings } from "app/table/lib/interfaces/ITableSettings";
 
 @Component({
     selector: 'customer-list',
@@ -20,7 +20,7 @@ import { ITableSettings } from "app/lib/interfaces/ITableSettings";
 })
 
 export class CustomerListComponent implements OnInit {
-    customers: Customer[];
+    customers: Customer[] = [];
     nameFilter = '';
     addressFilter = '';
     businessFilter = '';

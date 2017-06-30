@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Column } from 'app/lib/column';
+import { Column } from '../../lib/column';
 
 @Component({
   selector: 'column-title',

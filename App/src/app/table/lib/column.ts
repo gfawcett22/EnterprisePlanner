@@ -1,4 +1,4 @@
-import { DataSet } from "app/lib/data-set";
+import { DataSet } from "./data-set";
 
 export class Column {
 

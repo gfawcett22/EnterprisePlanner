@@ -1,6 +1,6 @@
-import { Column } from "app/lib/column";
-import { DataSet } from "app/lib/data-set";
-import { Row } from "app/lib/row";
+import { Column } from "./column";
+import { DataSet } from "./data-set";
+import { Row } from "./row";
 
 export class Cell {
     newValue: any;

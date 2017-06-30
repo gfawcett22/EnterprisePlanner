@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Column } from "app/lib/column";
+import { Column } from "../lib/column";
 
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounceTime';
