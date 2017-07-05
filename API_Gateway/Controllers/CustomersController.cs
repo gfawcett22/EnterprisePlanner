@@ -12,6 +12,7 @@ using CustomersDtoTypes.Models;
 using WebApiHelpersTypes.Helpers;
 using ProtoBuf;
 using WebApiHelpers.ObjectResults;
+using System.Diagnostics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,6 +34,7 @@ namespace API_Gateway.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomers(CustomersPagingParameters customerParams)
         {
+            Debug.Write(customerParams);
             var uri = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(_client.BaseAddress.ToString(),
                     ObjectToDictionaryConverter.ConvertToDictionary(customerParams));
 

@@ -1,119 +1,132 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
-using WebApiHelpers.ObjectResults;
-using OrdersDtoTypes.Models;
+using API_Gateway.HttpClients;
 using OrdersDtoTypes.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using OrdersDtoTypes.Models;
+using WebApiHelpersTypes.Helpers;
+using ProtoBuf;
+using WebApiHelpers.ObjectResults;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace API_Gateway.Controllers
 {
+    /// <summary>
+    /// Controller for front end to interact with. Accepts JSON data from front end, converts to protobuf and sends to Orders Microservice
+    /// </summary>
     [Route("api/[controller]")]
     public class OrdersController : Controller
     {
-        private readonly IOrderRepository _repo;
+        private readonly OrdersHttpClient _client;
 
-        public OrdersController(IOrderRepository repo)
+        public OrdersController(OrdersHttpClient client)
         {
-            _repo = repo;
+            _client = client;
         }
 
         [HttpGet]
-        public IActionResult GetOrders(OrdersPagingParameters orderParams)
+        public async Task<IActionResult> GetOrders(OrdersPagingParameters orderParams)
         {
-            try
+            var uri = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(_client.BaseAddress.ToString(),
+                    ObjectToDictionaryConverter.ConvertToDictionary(orderParams));
+
+            var orderResponse = await _client.GetAsync(uri);
+
+            if (orderResponse.IsSuccessStatusCode)
             {
-                var ordersFromRepo = _repo.GetOrders(orderParams).ToList();
-                var orders = Mapper.Map<IEnumerable<OrderDto>>(ordersFromRepo);
-                return Ok(orders);
+                var ordersStream = await orderResponse.Content.ReadAsStreamAsync();
+                var orders = Serializer.DeserializeItems<OrderDto>(ordersStream, PrefixStyle.Base128, 1);
+                if (orders != null)
+                    return StatusCode((int)orderResponse.StatusCode, orders);
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return StatusCode((int)orderResponse.StatusCode);
         }
 
-        [HttpGet("{id}", Name ="GetOrder")]
-        public IActionResult GetOrder([FromRoute]int id)
+        [HttpGet("{id}", Name = "GetOrder")]
+        public async Task<IActionResult> GetOrder(int id)
         {
-            try
+            UriBuilder uriBuilder = new UriBuilder(_client.BaseAddress);
+            uriBuilder.Path +=  "/" + id;
+
+            var orderResponse = await _client.GetAsync(uriBuilder.Uri);
+            if (orderResponse.IsSuccessStatusCode)
             {
-                if (!_repo.OrderExists(id)) { return NotFound(); }
-                var order = Mapper.Map<OrderDto>(_repo.GetOrder(id));
-                return Ok(order);
+                var order = Serializer.Deserialize<OrderDto>(await orderResponse.Content.ReadAsStreamAsync());
+                if (order != null)
+                    return StatusCode((int)orderResponse.StatusCode, order);
             }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return StatusCode((int)orderResponse.StatusCode);
         }
 
         [HttpPost]
-        public IActionResult CreateOrder([FromBody]OrderToCreateDto orderToCreate)
+        public async Task<IActionResult> CreateOrder([FromBody]OrderToCreateDto orderToCreate)
         {
-            try
-            {
-                if (orderToCreate == null) return BadRequest();
+            if (orderToCreate == null) return BadRequest();
 
-                if(!ModelState.IsValid)
-                {
-                    return new UnprocessableEntityObjectResult(ModelState);
-                }
-
-                var orderEntity = Mapper.Map<Order>(orderToCreate);
-                _repo.AddOrder(orderEntity);
-                if (!_repo.Save())
-                {
-                    throw new Exception("Error creating order.");
-                }
-                var orderToReturn = Mapper.Map<OrderDto>(orderEntity);
-                return CreatedAtRoute("GetOrder", new { id = orderToReturn.Id }, orderToReturn);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateOrder(int id, [FromBody]OrderToUpdateDto orderToUpdate)
-        {
-            if (orderToUpdate == null) return BadRequest();
-
-            if(!ModelState.IsValid)
+            //basically dont wanna have to worry about deserializing 2 possible types of response object, so just gonna do the validation here
+            if (!ModelState.IsValid)
             {
                 return new UnprocessableEntityObjectResult(ModelState);
             }
 
-            var orderFromRepo = _repo.GetOrder(id);
-            if (orderFromRepo == null) return NotFound();
-            try
+            MemoryStream orderProtoStream = new MemoryStream();
+            Serializer.Serialize(orderProtoStream, orderToCreate);
+            ByteArrayContent bArray = new ByteArrayContent(orderProtoStream.ToArray());
+
+            var orderResponse = await _client.PostAsync(_client.BaseAddress, bArray);
+
+            if (orderResponse.IsSuccessStatusCode)
             {
-                Mapper.Map(orderToUpdate, orderFromRepo);
-                _repo.UpdateOrder(orderFromRepo);
-                _repo.Save();
+                var ordersStream = await orderResponse.Content.ReadAsStreamAsync();
+                var order = Serializer.Deserialize<OrderDto>(ordersStream);
+                if (order != null)
+                    return StatusCode((int) orderResponse.StatusCode, order);
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-            return NoContent();
+            return StatusCode((int)orderResponse.StatusCode);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteOrder(int id)
+        // PUT api/values/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOrder(int id, [FromBody]OrderToUpdateDto orderToUpdate)
         {
-            var orderFromRepo = _repo.GetOrder(id);
-            if (orderFromRepo == null) return NotFound();
-            _repo.DeleteOrder(orderFromRepo);
-            if (!_repo.Save())
+            if (orderToUpdate == null) return BadRequest();
+
+            //basically dont wanna have to worry about deserializing 2 possible types of response object, so just gonna do the validation here
+            if (!ModelState.IsValid)
             {
-                throw new Exception($"Error deleting order {id}.");
+                return new UnprocessableEntityObjectResult(ModelState);
             }
 
-            return NoContent();
+            MemoryStream orderProtoStream = new MemoryStream();
+            Serializer.Serialize(orderProtoStream, orderToUpdate);
+            ByteArrayContent bArray = new ByteArrayContent(orderProtoStream.ToArray());
+            var orderResponse = await _client.PutAsync(_client.BaseAddress, bArray);
+
+            if (orderResponse.IsSuccessStatusCode)
+            {
+                var ordersStream = await orderResponse.Content.ReadAsStreamAsync();
+                var order = Serializer.Deserialize<OrderDto>(ordersStream);
+                if (order != null)
+                    return StatusCode((int)orderResponse.StatusCode, order);
+            }
+            return StatusCode((int)orderResponse.StatusCode);
+        }
+
+        // DELETE api/values/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            UriBuilder uriBuilder = new UriBuilder(_client.BaseAddress);
+            uriBuilder.Path += "/" + id;
+            var orderResponse = await _client.DeleteAsync(uriBuilder.Uri);
+            
+            return StatusCode((int)orderResponse.StatusCode);
         }
     }
 }

@@ -6,8 +6,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Orders.Entities;
 using Orders.Repositories;
-using Orders.Models;
 using OrdersDtoTypes.Helpers;
+using OrdersDtoTypes.Models;
 using WebApiHelpers.ObjectResults;
 
 namespace Orders.Controllers
@@ -27,7 +27,7 @@ namespace Orders.Controllers
         {
             try
             {
-                var ordersFromRepo = _repo.GetOrders(ordersParams);
+                var ordersFromRepo = _repo.GetOrders(ordersParams).ToList();
                 var orders = Mapper.Map<IEnumerable<OrderDto>>(ordersFromRepo);
                 return Ok(orders);
             }

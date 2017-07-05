@@ -40,7 +40,6 @@ namespace Customers
             services.AddDbContext<CustomersDbContext>(o => o.UseInMemoryDatabase());
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,22 +47,16 @@ namespace Customers
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            if (env.IsDevelopment())
+
+            //if it is production, just return general server error message
+            app.UseExceptionHandler(appBuilder =>
             {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                //if it is production, just return general server error message
-                app.UseExceptionHandler(appBuilder =>
+                appBuilder.Run(async context =>
                 {
-                    appBuilder.Run(async context =>
-                    {
-                        context.Response.StatusCode = 500;
-                        await context.Response.WriteAsync("A server error occured.");
-                    });
+                    context.Response.StatusCode = 500;
+                    await context.Response.WriteAsync("A server error occured.");
                 });
-            }
+            });
 
             var custContext = app.ApplicationServices.GetService<CustomersDbContext>();
             CustomersDbSeeder.SeedInMemoryDatabase(custContext);

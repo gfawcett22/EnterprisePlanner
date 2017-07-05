@@ -4,6 +4,7 @@ using ProtoBuf;
 
 namespace OrdersDtoTypes.Models
 {
+    [ProtoContract]
     public class OrderDto : OrderBaseDto
     {
         [Key]

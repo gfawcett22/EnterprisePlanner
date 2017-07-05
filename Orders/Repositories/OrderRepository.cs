@@ -34,9 +34,9 @@ namespace Orders.Repositories
         public IQueryable<Order> GetOrders(OrdersPagingParameters pagingParameters)
         {
             return _context.Orders
-                .Where(o => o.Id.ToString().Contains(pagingParameters.Id.ToString()) 
-                        || o.CustomerId.ToString().Contains(pagingParameters.CustomerId.ToString())
-                        || o.DatePlaced == pagingParameters.DatePlaced)
+                // .Where(o => o.Id.ToString().Contains(pagingParameters.Id.ToString()) 
+                //         || o.CustomerId.ToString().Contains(pagingParameters.CustomerId.ToString())
+                //         || o.DatePlaced == pagingParameters.DatePlaced)
                 .Skip(pagingParameters.PageSize * (pagingParameters.PageNumber - 1))
                 .Take(pagingParameters.PageSize);
         }
