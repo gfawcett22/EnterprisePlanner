@@ -34,12 +34,19 @@ namespace Authentication
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // app.UseJwtBearerAuthentication(new JwtBearerOptions()
-            // {
-            //     Audience = "http://localhost:5000",
-            //     AutomaticAuthenticate = true,
-                
-            // });
+            app.UseJwtBearerAuthentication(new JwtBearerOptions()
+            {
+                Audience = "http://localhost:5000",
+                AutomaticAuthenticate = true,
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AppConfiguration:Key"].Value)),
+                    ValidAudience = "http://localhost:5000",
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = "http://localhost:5000"
+                }
+            });
             app.UseMvc();
         }
     }
