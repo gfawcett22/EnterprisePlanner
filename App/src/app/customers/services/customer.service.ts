@@ -26,6 +26,9 @@ export class CustomerService extends BaseHttpService {
     }
 
     getCustomer(id: number): Observable<Customer>{
+        if (id === 0) {
+            return Observable.of(this.initializeCustomer());
+        };
         const url = `${this.customerApiUrl}/${id}`;
         return this.http.get(url)
             .map(super.extractData)
@@ -36,7 +39,7 @@ export class CustomerService extends BaseHttpService {
     saveCustomer(customer: Customer): Observable<Customer> {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
-
+        console.log(customer);
         if (customer.id === 0){
             return this.createCustomer(customer, options);
         }
@@ -45,6 +48,7 @@ export class CustomerService extends BaseHttpService {
 
     createCustomer(customer:Customer, options: RequestOptions): Observable<Customer> {
         customer.id = undefined;
+        console.log(customer);
         return this.http.post(this.customerApiUrl, customer)
             .map(this.extractData)
             .catch(super.handleError);
@@ -60,5 +64,14 @@ export class CustomerService extends BaseHttpService {
     deleteCustomer(id: number): Observable<Response> {
         const url = `${this.customerApiUrl}/${id}`;
         return this.http.delete(url);
+    }
+
+    initializeCustomer(): Customer {
+        return {
+            id: 0,
+            name: '',
+            address: '',
+            business: ''
+        };
     }
 }

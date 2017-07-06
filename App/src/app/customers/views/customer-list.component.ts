@@ -1,7 +1,8 @@
+import { Row } from '../../table/lib/row';
 import { CustomerPagingParameters } from '../models/customer-paging-parameters.interface';
 import { CustomerService } from '../services/customer.service';
 import { Customer } from '../models/customer.interface';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { CustomerEditComponent } from 'app/customers/views/customer-edit.component';
 import { CustomerDetailComponent } from 'app/customers/views/customer-detail.component';
@@ -16,16 +17,24 @@ import { ITableSettings } from "app/table/lib/interfaces/ITableSettings";
             color: black;
         }
         `
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CustomerListComponent implements OnInit {
     customers: Customer[] = [];
-    nameFilter = '';
-    addressFilter = '';
-    businessFilter = '';
-    pageNumberFilter = 1;
-    pageSizeFilter = 25;
+    // nameFilter = '';
+    // addressFilter = '';
+    // businessFilter = '';
+    // pageNumberFilter = 1;
+    // pageSizeFilter = 25;
+    pagingParameters: CustomerPagingParameters = {
+        name: '',
+        business: '',
+        address: '',
+        pageNumber: 1,
+        pageSize: 25
+    };
 
     settings: ITableSettings = {
         columns: {
@@ -35,50 +44,67 @@ export class CustomerListComponent implements OnInit {
         },
         sortColumn: 'Name',
         showActionButtons: true,
+        noResultsMessage: 'No Results'
     };
 
-    constructor(private customerService: CustomerService, public dialog: MdDialog) { }
+    constructor(private customerService: CustomerService, public dialog: MdDialog, private cdr: ChangeDetectorRef) { }
 
     ngOnInit() {
         this.getCustomers();
+        this.dialog.afterAllClosed.subscribe(() => this.onDialogClose());
     }
 
-    getCustomers() {
-        const params: CustomerPagingParameters = {
-            name: this.nameFilter,
-            address: this.addressFilter,
-            business: this.businessFilter,
-            pageNumber: this.pageNumberFilter,
-            pageSize: this.pageSizeFilter
-        };
-        this.customerService.getCustomers(params)
-            .subscribe(c => this.customers = c, err => console.log(err));
+    getCustomers() {        
+        this.customerService.getCustomers(this.pagingParameters)
+            .subscribe(c => this.onCustomersReceived(c) , err => console.log(err));
     }
 
-    openEditDialog(id: number) {
-        debugger;
+    onCustomersReceived(customers: Customer[]) {
+        this.customers = customers;
+        this.cdr.markForCheck();
+    }
+
+    openEditDialog(row: Row) {
         this.dialog.open(
             CustomerEditComponent,
             {
-                data: id,
+                data: row.getData().id,
                 height: '50%',
                 width: '60%'
             }
         );
     }
 
-    openDetailDialog(id: number) {
-        debugger;
+    openDetailDialog(row: Row) {
         this.dialog.open(
             CustomerDetailComponent,
             {
-                data: id
+                data: row.getData().id
             }
         );
     }
 
+    openCreateDialog() {
+        this.dialog.open(
+            CustomerEditComponent,
+            {
+                data: 0,
+                height: '50%',
+                width: '60%'
+            }
+        );
+    }
+
+    onDialogClose() {
+        this.getCustomers();
+    }
+
     filter($event): void {
         console.log($event);
+        if($event) {
+            Object.assign(this.pagingParameters, $event);
+            this.getCustomers();
+        }
     }
 
     sort($event): void {

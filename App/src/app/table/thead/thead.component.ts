@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Grid } from "../lib/grid";
 
 @Component({
   selector: '[table-head]',
   templateUrl: './thead.component.html',
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class THeadComponent implements OnInit {
 
@@ -17,7 +18,6 @@ export class THeadComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.grid);
   }
 
 }

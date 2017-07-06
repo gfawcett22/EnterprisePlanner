@@ -22,8 +22,9 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class CustomerEditComponent implements OnInit, AfterViewInit {
+
     @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
-    @Output() closeDialog = new EventEmitter();
+
     pageTitle: string = 'Customer Edit';
     customer: Customer;
     errorMessage: string;
@@ -64,6 +65,7 @@ export class CustomerEditComponent implements OnInit, AfterViewInit {
         });
 
         const id = +this.data;
+        console.log(id);
         this.getCustomer(id);
     }
 
@@ -124,6 +126,6 @@ export class CustomerEditComponent implements OnInit, AfterViewInit {
 
     onSaveComplete(): void {
         this.customerForm.reset();
-        this.closeDialog.emit();
+        this.dialogRef.close();
     }
 }

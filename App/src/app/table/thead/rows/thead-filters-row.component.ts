@@ -1,4 +1,5 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import { FilterObject } from '../../lib/interfaces/FilterObject';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Grid } from '../../lib/grid';
 import { Column } from "../../lib/column";
@@ -6,13 +7,16 @@ import { Column } from "../../lib/column";
 @Component({
   selector: '[thead-filters-row]',
   template: `
-    <th *ngIf="grid.getSetting('showActionButtons')"></th>
+    <th *ngIf="grid.getSetting('showActionButtons')">
+      <button md-raised-button (click)="create.emit(null)">Create New</button>
+    </th>
     <th *ngFor="let column of grid.getColumns()" >
       <table-filter [column]="column"
-                    (filter)="filter.emit($event)">
+                    (filter)="updateFilters($event)">
       </table-filter>
     </th>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TheadFitlersRowComponent {
 
@@ -21,4 +25,12 @@ export class TheadFitlersRowComponent {
   @Output() create = new EventEmitter<any>();
   @Output() filter = new EventEmitter<any>();
 
+  filterObject: Object = {};
+
+  updateFilters($event: Object): void {
+    if ($event) {
+      Object.assign(this.filterObject, $event);
+      this.filter.emit(this.filterObject);
+    }
+  }
 }

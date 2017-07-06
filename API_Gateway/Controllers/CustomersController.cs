@@ -105,10 +105,13 @@ namespace API_Gateway.Controllers
                 return new UnprocessableEntityObjectResult(ModelState);
             }
 
+            UriBuilder uriBuilder = new UriBuilder(_client.BaseAddress);
+            uriBuilder.Path +=  "/" + id;
+
             MemoryStream customerProtoStream = new MemoryStream();
             Serializer.Serialize(customerProtoStream, customerToUpdate);
             ByteArrayContent bArray = new ByteArrayContent(customerProtoStream.ToArray());
-            var customerResponse = await _client.PutAsync(_client.BaseAddress, bArray);
+            var customerResponse = await _client.PutAsync(uriBuilder.Uri, bArray);
 
             if (customerResponse.IsSuccessStatusCode)
             {

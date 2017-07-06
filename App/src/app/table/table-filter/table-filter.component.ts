@@ -1,5 +1,6 @@
+import { FilterObject } from '../lib/interfaces/FilterObject';
 import { FormControl } from '@angular/forms';
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Column } from "../lib/column";
 
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -17,7 +18,8 @@ import 'rxjs/add/operator/skip';
             placeholder="{{ column.title }}" />
     </md-input-container>
   `,
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableFilterComponent implements OnInit {
 
@@ -25,7 +27,7 @@ export class TableFilterComponent implements OnInit {
   @Input() query: string;
   @Input() inputClass: string;
   @Input() column: Column;
-  @Output() filter = new EventEmitter<string>();
+  @Output() filter = new EventEmitter<any>();
 
   inputControl = new FormControl();
 
@@ -40,6 +42,8 @@ export class TableFilterComponent implements OnInit {
   }
 
   setFilter() {
-    this.filter.emit(this.query);
+    let returnObj = {};
+    returnObj[this.column.id] = this.query;
+    this.filter.emit(returnObj);
   }
 }

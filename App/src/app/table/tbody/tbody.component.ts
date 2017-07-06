@@ -4,7 +4,13 @@ import { Grid } from "../lib/grid";
 @Component({
   selector: '[table-body]',
   templateUrl: './tbody.component.html',
-  styles: []
+  styles: [
+    `
+    .center {
+      text-align: center;
+    }
+    `
+  ]
 })
 export class TBodyComponent implements OnChanges {
   @Input() grid: Grid;
@@ -12,13 +18,13 @@ export class TBodyComponent implements OnChanges {
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
 
-  noDataMessage: string;
+  noResultsMessage: string;
   showActionButtons: boolean;
 
   constructor() { }
 
   ngOnChanges() {
-    this.noDataMessage = this.grid.getSetting('noDataMessage');
+    this.noResultsMessage = this.grid.getSetting('noResultsMessage');
     this.showActionButtons = this.grid.getSetting('showActionButtons');
   }
 

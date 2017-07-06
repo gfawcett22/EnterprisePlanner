@@ -1,6 +1,8 @@
 <tr *ngFor="let row of grid.getRows()">
   <td *ngIf="showActionButtons">
-    <table-edit-delete (edit)="edit.emit($event)" (delete)="delete.emit($event)">
+    <table-edit-delete [row]="row"
+                       (edit)="edit.emit($event)" 
+                       (delete)="delete.emit($event)">
     </table-edit-delete>
   </td>
   <td *ngFor="let cell of row.cells">
@@ -10,6 +12,6 @@
 
 <tr *ngIf="grid.getRows().length == 0">
   <td [attr.colspan]="grid.getColumns().length + (showActionButtons ? 1 : 0)">
-    {{ noDataMessage }}
+    <h4 class="center">{{ noResultsMessage }}</h4>
   </td>
 </tr>

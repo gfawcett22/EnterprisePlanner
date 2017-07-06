@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { ITableSettings } from "./lib/interfaces/ITableSettings";
 import { deepExtend } from "./lib/helpers";
 import { Grid } from "./lib/grid";
@@ -7,6 +7,7 @@ import { Grid } from "./lib/grid";
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnChanges {
 
@@ -25,7 +26,7 @@ export class TableComponent implements OnChanges {
   defaultSettings: ITableSettings = {
     columns: [],
     sortColumn: '',
-    showActionButtons: true,
+    showActionButtons: true
   };
 
   constructor() {

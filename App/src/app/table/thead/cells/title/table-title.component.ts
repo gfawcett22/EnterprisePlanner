@@ -20,14 +20,11 @@ export class TitleComponent {
   @Input() column: Column;
   @Output() sort = new EventEmitter<any>();
 
-  ngOnInit() {
-    console.log(this.column);
-  }
   _sort(event: any) {
     event.preventDefault();
     this.changeSortDirection();
     
-    this.sort.emit(null);
+    this.sort.emit(this.column);
   }
 
   changeSortDirection(): string {
