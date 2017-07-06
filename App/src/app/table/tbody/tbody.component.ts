@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnChanges, Output, Input } from '@angular/core
 import { Grid } from "../lib/grid";
 
 @Component({
-  selector: 'table-body',
+  selector: '[table-body]',
   templateUrl: './tbody.component.html',
   styles: []
 })

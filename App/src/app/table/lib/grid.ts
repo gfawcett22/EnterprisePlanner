@@ -9,13 +9,13 @@ export class Grid {
     settings: ITableSettings;
     dataSet: DataSet;
 
-    constructor(settings: any) {
-        this.setSettings(settings);
+    constructor(settings: any, rows: any[]) {
+        this.setSettings(settings, rows);
     }
 
-    setSettings(settings: ITableSettings) {
+    setSettings(settings: ITableSettings, rows: any[]) {
         this.settings = settings;
-        this.dataSet = new DataSet([], this.getSetting('columns'));
+        this.dataSet = new DataSet(rows, this.getSetting('columns'));
     }
 
     getSetting(name: string, defaultValue?: any): any {

@@ -12,12 +12,10 @@ export class BaseHttpService {
     }
     protected handleError(error) {
         // send error to server for logging
-        console.log(error);
         return Observable.throw(error.json().error || 'Server error');
     }
 
     protected getQueryFromObject(obj: any): string {
-        console.log(obj);
         let returnStr = "";
         if (typeof (obj) === "object") {
             let count = 0;

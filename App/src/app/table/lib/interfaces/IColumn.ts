@@ -1,4 +1,5 @@
 export interface IColumn {
+    key: string;
     title: string;
     filterable?: boolean;
     sortable?: boolean;

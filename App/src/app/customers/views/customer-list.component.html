@@ -1,10 +1,11 @@
 <div class='table-resposive'>
     <app-table [settings]="settings"
+               [rows]="customers"
                (edit)="openEditDialog($event)"
                (delete)="openEditDialog($event)"
                (create)="openEditDialog($event)"
-               (filter)="openEditDialog($event)"
-               (sort)="openEditDialog($event)">
+               (filter)="filter($event)"
+               (sort)="sort($event)">
     </app-table>
 </div>
                

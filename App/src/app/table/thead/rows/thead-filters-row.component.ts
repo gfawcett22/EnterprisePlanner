@@ -6,6 +6,7 @@ import { Column } from "../../lib/column";
 @Component({
   selector: '[thead-filters-row]',
   template: `
+    <th *ngIf="grid.getSetting('showActionButtons')"></th>
     <th *ngFor="let column of grid.getColumns()" >
       <table-filter [column]="column"
                     (filter)="filter.emit($event)">

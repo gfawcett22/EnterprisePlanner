@@ -32,7 +32,6 @@ export class DataSet {
         return this.rows.find((row: Row) => row.getData() === data);
     }
 
-
     setData(data: Array<any>) {
         this.data = data;
         this.createRows();

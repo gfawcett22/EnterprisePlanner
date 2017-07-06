@@ -4,6 +4,7 @@ import { Grid } from "../../lib/grid";
 @Component({
   selector: '[thead-titles-row]',
   template: `
+    <th *ngIf="grid.getSetting('showActionButtons')"></th>
     <th *ngFor="let column of grid.getColumns()"
       [style.width]="column.width" >
       <column-title [column]="column" (sort)="sort.emit($event)"></column-title>

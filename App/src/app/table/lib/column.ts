@@ -2,6 +2,7 @@ import { DataSet } from "./data-set";
 
 export class Column {
 
+    key: string = '';
     title: string = '';
     width: string = '';
     isSortable: boolean = false;
@@ -9,7 +10,9 @@ export class Column {
     sortDirection: string = '';
     defaultSortDirection: string = '';
 
-    constructor(public id: string, protected settings: any, protected dataSet: DataSet) { }
+    constructor(public id: string, protected settings: any, protected dataSet: DataSet) {
+        this.process();
+     }
 
     protected process() {
         this.title = this.settings['title'];

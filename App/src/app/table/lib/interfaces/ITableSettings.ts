@@ -1,9 +1,8 @@
 import { IColumn } from "./IColumn";
 
 export interface ITableSettings {
-    columns: IColumn[];
+    columns: Object;
     sortColumn: string;
     noResultsMessage?: string;
     showActionButtons: boolean;
-    rows: any[];
 }

@@ -28,14 +28,13 @@ export class CustomerListComponent implements OnInit {
     pageSizeFilter = 25;
 
     settings: ITableSettings = {
-        columns: [
-            {title: 'Name', sortable: true, sortDirection: 'asc', filterable: true, currentSort: false},
-            {title: 'Address', sortable: true, sortDirection: 'asc', filterable: true, currentSort: false},
-            {title: 'Business', sortable: true, sortDirection: 'asc', filterable: true, currentSort: false}
-        ],
+        columns: {
+            name: {title: 'Name', sortable: true, sortDirection: 'asc', filterable: true, currentSort: true},
+            address: {title: 'Address', sortable: true, sortDirection: 'asc', filterable: true, currentSort: false},
+            business: {title: 'Business', sortable: true, sortDirection: 'asc', filterable: true, currentSort: false}
+        },
         sortColumn: 'Name',
         showActionButtons: true,
-        rows: this.customers
     };
 
     constructor(private customerService: CustomerService, public dialog: MdDialog) { }
@@ -53,7 +52,7 @@ export class CustomerListComponent implements OnInit {
             pageSize: this.pageSizeFilter
         };
         this.customerService.getCustomers(params)
-            .subscribe(customers => this.customers = customers, err => console.log(err));
+            .subscribe(c => this.customers = c, err => console.log(err));
     }
 
     openEditDialog(id: number) {
@@ -76,6 +75,14 @@ export class CustomerListComponent implements OnInit {
                 data: id
             }
         );
+    }
+
+    filter($event): void {
+        console.log($event);
+    }
+
+    sort($event): void {
+        console.log($event);
     }
 
 }

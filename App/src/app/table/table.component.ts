@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { ITableSettings } from "./lib/interfaces/ITableSettings";
 import { deepExtend } from "./lib/helpers";
 import { Grid } from "./lib/grid";
@@ -8,9 +8,10 @@ import { Grid } from "./lib/grid";
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnChanges {
 
   @Input() settings: ITableSettings;
+  @Input() rows: any[];
 
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
@@ -25,13 +26,13 @@ export class TableComponent implements OnInit {
     columns: [],
     sortColumn: '',
     showActionButtons: true,
-    rows: []
   };
 
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnChanges() {
+    this.initGrid();
   }
 
   prepareSettings(): Object {
@@ -39,6 +40,6 @@ export class TableComponent implements OnInit {
   }
   
   initGrid() {
-    this.grid = new Grid(this.prepareSettings());
+    this.grid = new Grid(this.prepareSettings(), this.rows);
   }
 }
