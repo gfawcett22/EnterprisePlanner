@@ -14,7 +14,8 @@ import { MD_DIALOG_DATA, MdDialogRef } from '@angular/material';
 import { CustomerService } from 'app/customers/services/customer.service';
 import { FormGroup, FormBuilder, Validators, FormControlName } from '@angular/forms';
 import { GenericValidator } from 'app/shared/generic-validator';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
+
 
 @Component({
     selector: 'customer-edit',

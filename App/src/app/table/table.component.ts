@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChange
+} from '@angular/core';
 import { ITableSettings } from "./lib/interfaces/ITableSettings";
 import { deepExtend } from "./lib/helpers";
 import { Grid } from "./lib/grid";
@@ -32,11 +40,22 @@ export class TableComponent implements OnChanges {
   constructor() {
   }
 
-  ngOnChanges() {
-    this.initGrid();
+  ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
+    //this.initGrid();
+    console.log(changes);
+    if (this.grid) {
+      if (changes['settings']) {
+        this.grid.setSettings(this.prepareSettings(), this.rows);
+      } 
+      if(changes['rows']){
+        this.grid.setSettings(this.settings, this.rows);
+      }
+    } else {
+      this.initGrid();
+    }   
   }
 
-  prepareSettings(): Object {
+  prepareSettings(): ITableSettings {
     return deepExtend({}, this.defaultSettings, this.settings);
   }
   

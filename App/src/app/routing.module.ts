@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from 'app/error/page-not-found.component';
 const routes: Routes = [
   {path: 'welcome', component: WelcomeComponent},
   {path: 'customers', loadChildren: 'app/customers/customers.module#CustomersModule'},
-  // {path: 'orders', loadChildren: ''},
+  {path: 'orders', loadChildren: 'app/orders/orders.module#OrdersModule'},
   {path: '', redirectTo: 'welcome', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
