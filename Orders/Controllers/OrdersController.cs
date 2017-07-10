@@ -29,7 +29,11 @@ namespace Orders.Controllers
             {
                 var ordersFromRepo = _repo.GetOrders(ordersParams).ToList();
                 var orders = Mapper.Map<IEnumerable<OrderDto>>(ordersFromRepo);
-                return Ok(orders);
+                OrdersPagedResult result = new OrdersPagedResult {
+                    TotalResultCount = _repo.GetOrdersCount(),
+                    data = orders.ToList()
+                };
+                return Ok(result);
             }
             catch (Exception ex)
             {

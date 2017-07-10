@@ -46,6 +46,10 @@ namespace Customers.Repositories
                 .Take(pagingParameters.PageSize);
         }
 
+        public int GetResultCount() {
+            return _context.Customers.Count();
+        }
+
         public IQueryable<Customer> GetCustomers(IEnumerable<int> customerIds)
         {
             return _context.Customers.Where(c => customerIds.Contains(c.Id));

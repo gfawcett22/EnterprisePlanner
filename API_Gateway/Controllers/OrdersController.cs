@@ -41,7 +41,7 @@ namespace API_Gateway.Controllers
             if (orderResponse.IsSuccessStatusCode)
             {
                 var ordersStream = await orderResponse.Content.ReadAsStreamAsync();
-                var orders = Serializer.DeserializeItems<OrderDto>(ordersStream, PrefixStyle.Base128, 1);
+                var orders = Serializer.Deserialize<OrdersPagedResult>(ordersStream);
                 if (orders != null)
                     return StatusCode((int)orderResponse.StatusCode, orders);
             }

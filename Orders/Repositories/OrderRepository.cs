@@ -46,6 +46,11 @@ namespace Orders.Repositories
             return _context.Orders.Where(o => orderIds.Contains(o.Id));
         }
 
+        public int GetOrdersCount() 
+        {
+            return _context.Orders.Count();
+        }
+
         public bool OrderExists(int orderId)
         {
             return _context.Orders.Any(o => o.Id == orderId);

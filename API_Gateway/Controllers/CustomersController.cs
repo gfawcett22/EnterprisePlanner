@@ -13,6 +13,7 @@ using WebApiHelpersTypes.Helpers;
 using ProtoBuf;
 using WebApiHelpers.ObjectResults;
 using System.Diagnostics;
+using CustomerDtoTypes.Helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -43,7 +44,7 @@ namespace API_Gateway.Controllers
             if (customerResponse.IsSuccessStatusCode)
             {
                 var customersStream = await customerResponse.Content.ReadAsStreamAsync();
-                var customers = Serializer.DeserializeItems<CustomerDto>(customersStream, PrefixStyle.Base128, 1);
+                var customers = Serializer.Deserialize<CustomersPagedResult>(customersStream);
                 if (customers != null)
                     return StatusCode((int)customerResponse.StatusCode, customers);
             }
@@ -86,7 +87,7 @@ namespace API_Gateway.Controllers
             if (customerResponse.IsSuccessStatusCode)
             {
                 var customersStream = await customerResponse.Content.ReadAsStreamAsync();
-                var customer = Serializer.Deserialize<CustomerDto>(customersStream);
+                var customer = Serializer.Deserialize<CustomersPagedResult>(customersStream);
                 if (customer != null)
                     return StatusCode((int) customerResponse.StatusCode, customer);
             }

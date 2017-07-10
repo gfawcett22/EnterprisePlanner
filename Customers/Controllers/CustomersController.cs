@@ -9,6 +9,7 @@ using Customers.Entities;
 using WebApiHelpers.ObjectResults;
 using CustomersDtoTypes.Models;
 using CustomersDtoTypes.Helpers;
+using CustomerDtoTypes.Helpers;
 
 namespace Customers.Controllers
 {
@@ -29,7 +30,12 @@ namespace Customers.Controllers
             {
                 var customersFromRepo = _repo.GetCustomers(customerParams).ToList();
                 var customers = Mapper.Map<IEnumerable<CustomerDto>>(customersFromRepo);
-                return Ok(customers);
+                CustomersPagedResult result = new CustomersPagedResult 
+                {
+                    TotalResultCount = _repo.GetResultCount(),
+                    data = customers.ToList()
+                };
+                return Ok(result);
             }
             catch (Exception ex)
             {

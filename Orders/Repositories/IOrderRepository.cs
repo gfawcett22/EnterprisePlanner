@@ -11,6 +11,7 @@ namespace Orders.Repositories
         IQueryable<Order> GetOrders(OrdersPagingParameters pagingParameters);
 		Order GetOrder(int orderId);
         IQueryable<Order> GetOrders(IEnumerable<int> orderIds);
+		int GetOrdersCount();
 		void AddOrder(Order order);
 		void DeleteOrder(Order order);
 		void UpdateOrder(Order order);

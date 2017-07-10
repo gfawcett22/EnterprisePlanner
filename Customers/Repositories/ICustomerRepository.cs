@@ -12,6 +12,7 @@ namespace Customers.Repositories
 			IQueryable<Customer> GetCustomers(CustomersPagingParameters pagingParameters);
 			Customer GetCustomer(int customerId);
             IQueryable<Customer> GetCustomers(IEnumerable<int> customerIds);
+			int GetResultCount();
 			void AddCustomer(Customer customer);
 			void DeleteCustomer(Customer customer);
 			void UpdateCustomer(Customer customer);
