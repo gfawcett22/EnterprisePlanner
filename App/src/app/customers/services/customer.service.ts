@@ -11,6 +11,7 @@ import 'rxjs/add/observable/of';
 import { BaseHttpService } from 'app/services/baseHttp.service';
 import { Customer } from 'app/customers/models/customer.interface';
 import { CustomerPagingParameters } from 'app/customers/models/customer-paging-parameters.interface';
+import { CustomerPagingResult } from '../models/customer-paging-result.interface';
 
 @Injectable()
 export class CustomerService extends BaseHttpService {
@@ -18,7 +19,7 @@ export class CustomerService extends BaseHttpService {
 
     constructor(private http: Http, @Inject('API_URL') private apiUrl: string) { super(); }
 
-    getCustomers(params: CustomerPagingParameters): Observable<Customer[]> {
+    getCustomers(params: CustomerPagingParameters): Observable<CustomerPagingResult> {
         const url = this.customerApiUrl + super.getQueryFromObject(params);
         return this.http.get(this.customerApiUrl)
             .map(super.extractData)

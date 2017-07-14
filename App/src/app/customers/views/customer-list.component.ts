@@ -1,3 +1,4 @@
+import { CustomerPagingResult } from '../models/customer-paging-result.interface';
 import { Row } from '../../table/lib/row';
 import { CustomerPagingParameters } from '../models/customer-paging-parameters.interface';
 import { CustomerService } from '../services/customer.service';
@@ -23,6 +24,7 @@ import { ITableSettings } from "app/table/lib/interfaces/ITableSettings";
 
 export class CustomerListComponent implements OnInit {
     customers: Customer[] = [];
+    totalCustomerCount: number = 0;
     // nameFilter = '';
     // addressFilter = '';
     // businessFilter = '';
@@ -59,8 +61,9 @@ export class CustomerListComponent implements OnInit {
             .subscribe(c => this.onCustomersReceived(c) , err => console.log(err));
     }
 
-    onCustomersReceived(customers: Customer[]) {
-        this.customers = customers;
+    onCustomersReceived(customerPagingResult: CustomerPagingResult) {
+        this.customers = customerPagingResult.data;
+        this.totalCustomerCount = customerPagingResult.totalResultCount;
         this.cdr.markForCheck();
     }
 
