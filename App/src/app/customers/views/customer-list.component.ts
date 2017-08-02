@@ -25,11 +25,6 @@ import { ITableSettings } from "app/table/lib/interfaces/ITableSettings";
 export class CustomerListComponent implements OnInit {
     customers: Customer[] = [];
     totalCustomerCount: number = 0;
-    // nameFilter = '';
-    // addressFilter = '';
-    // businessFilter = '';
-    // pageNumberFilter = 1;
-    // pageSizeFilter = 25;
     pagingParameters: CustomerPagingParameters = {
         name: '',
         business: '',
@@ -62,7 +57,7 @@ export class CustomerListComponent implements OnInit {
     }
 
     onCustomersReceived(customerPagingResult: CustomerPagingResult) {
-        this.customers = customerPagingResult.data;
+        this.customers = customerPagingResult.data || [];
         this.totalCustomerCount = customerPagingResult.totalResultCount;
         this.cdr.markForCheck();
     }

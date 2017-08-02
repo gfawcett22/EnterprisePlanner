@@ -35,7 +35,6 @@ namespace API_Gateway.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomers(CustomersPagingParameters customerParams)
         {
-            Debug.Write(customerParams);
             var uri = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(_client.BaseAddress.ToString(),
                     ObjectToDictionaryConverter.ConvertToDictionary(customerParams));
 

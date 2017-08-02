@@ -5,7 +5,6 @@ import { Grid } from "../lib/grid";
   selector: '[table-head]',
   templateUrl: './thead.component.html',
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class THeadComponent implements OnInit {
 

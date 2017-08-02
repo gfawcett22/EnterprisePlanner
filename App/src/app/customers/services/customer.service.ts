@@ -21,7 +21,7 @@ export class CustomerService extends BaseHttpService {
 
     getCustomers(params: CustomerPagingParameters): Observable<CustomerPagingResult> {
         const url = this.customerApiUrl + super.getQueryFromObject(params);
-        return this.http.get(this.customerApiUrl)
+        return this.http.get(url)
             .map(super.extractData)
             .catch(super.handleError);
     }

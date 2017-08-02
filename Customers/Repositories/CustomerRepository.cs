@@ -40,8 +40,8 @@ namespace Customers.Repositories
         {
             return _context.Customers
                 .Where(c => c.Name.Contains(pagingParameters.Name ?? "") 
-                            || c.Address.Contains(pagingParameters.Address ?? "")
-                            || c.Business.Contains(pagingParameters.Business ?? ""))
+                            && c.Address.Contains(pagingParameters.Address ?? "")
+                            && c.Business.Contains(pagingParameters.Business ?? ""))
                 .Skip(pagingParameters.PageSize * (pagingParameters.PageNumber - 1))
                 .Take(pagingParameters.PageSize);
         }

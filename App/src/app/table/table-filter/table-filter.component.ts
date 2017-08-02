@@ -51,7 +51,7 @@ export class TableFilterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('table filter changes', changes);
+    //console.log('table filter changes', changes);
   }
 
   setFilter() {

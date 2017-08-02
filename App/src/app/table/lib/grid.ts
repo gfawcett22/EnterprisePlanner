@@ -14,8 +14,13 @@ export class Grid {
     }
 
     setSettings(settings: ITableSettings, rows: any[]) {
-        this.settings = settings;
-        this.dataSet = new DataSet(rows, this.getSetting('columns'));
+        if (settings) {
+            this.settings = settings;
+            this.dataSet = new DataSet(rows, this.getSetting('columns'));
+        }
+        else {
+            this.dataSet.setData(rows);
+        }
     }
 
     getSetting(name: string, defaultValue?: any): any {

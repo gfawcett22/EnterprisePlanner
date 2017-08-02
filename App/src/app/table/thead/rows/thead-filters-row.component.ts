@@ -16,7 +16,6 @@ import { Column } from "../../lib/column";
       </table-filter>
     </th>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TheadFitlersRowComponent {
 
@@ -25,7 +24,7 @@ export class TheadFitlersRowComponent {
   @Output() create = new EventEmitter<any>();
   @Output() filter = new EventEmitter<any>();
 
-  filterObject: Object = {};
+  private filterObject: Object = {};
 
   updateFilters($event: Object): void {
     if ($event) {

@@ -15,7 +15,6 @@ import { Grid } from "./lib/grid";
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableComponent implements OnChanges {
 
@@ -47,8 +46,8 @@ export class TableComponent implements OnChanges {
       if (changes['settings']) {
         this.grid.setSettings(this.prepareSettings(), this.rows);
       } 
-      if(changes['rows']){
-        this.grid.setSettings(this.settings, this.rows);
+      else if(changes['rows']){
+        this.grid.setSettings(null, this.rows);
       }
     } else {
       this.initGrid();
