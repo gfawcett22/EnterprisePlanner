@@ -1,0 +1,54 @@
+<h3 md-dialog-title>
+    {{pageTitle}}
+</h3>
+
+<div md-dialog-content>
+    <form class="form-horizontal" novalidate (ngSubmit)="saveOrder()" [formGroup]="orderForm">
+        <fieldset>
+            <md-input-container>
+                <input mdInput type="text" placeholder="Customer ID (required)" formControlName="customerId" />
+                <md-error *ngIf="displayMessage.customerId">
+                    {{displayMessage.customerId}}
+                </md-error>
+            </md-input-container>
+            <md-input-container>
+                <input mdInput type="text" placeholder="Customer Name" formControlName="customerName" />
+                <md-error *ngIf="displayMessage.customerName">
+                    {{displayMessage.customerName}}
+                </md-error>
+            </md-input-container>
+            <md-input-container>
+                <input mdInput [mdDatepicker]="datePlacedInput" placeholder="Date Placed (required)" formControlName="datePlaced" />
+                <button mdSuffix [mdDatepickerToggle]="datePlacedInput"></button>
+                <md-datepicker #datePlacedInput></md-datepicker>
+                <md-error *ngIf="displayMessage.datePlaced">
+                    {{displayMessage.datePlaced}}
+                </md-error>
+            </md-input-container>
+
+            <div md-dialog-actions>
+                <span>
+                            <button md-raised-button
+                                    type="submit"
+                                    [disabled]='!orderForm.valid'>
+                                Save
+                            </button>
+                        </span>
+                <span>
+                            <button md-dialog-close
+                                md-raised-button>
+                                Cancel
+                            </button>
+                        </span>
+                <span>
+                            <button
+                               md-raised-button
+                               (click)="deleteOrder(order.id)">
+                                Delete
+                            </button>
+                        </span>
+            </div>
+        </fieldset>
+    </form>
+    <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+</div>

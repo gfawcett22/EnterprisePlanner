@@ -27,7 +27,7 @@ import { CustomerService } from 'app/customers/services/customer.service';
         CustomerItemComponent,
         CustomerDetailComponent,
         CustomerEditComponent
-        ],
+    ],
     providers: [
         CustomerService
     ],

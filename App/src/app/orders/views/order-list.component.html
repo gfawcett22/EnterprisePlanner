@@ -1,23 +1,10 @@
-<div>
-  <md-table #table [datasource]="dataSource">
-
-    <!-- ID Column -->
-    <ng-container cdkColumnDef="userId">
-      <md-header-cell *cdkHeaderCellDef> ID </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
-    </ng-container>
-
-    <!-- Date Column -->
-    <ng-container cdkColumnDef="datePlaced">
-      <md-header-cell *cdkHeaderCellDef> Date Placed </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.datePlaced}}% </md-cell>
-    </ng-container>
-
-    <!-- Customer ID Column -->
-    <ng-container cdkColumnDef="customerId">
-      <md-header-cell *cdkHeaderCellDef> Customer ID </md-header-cell>
-      <md-cell *cdkCellDef="let row"> {{row.customerId}} </md-cell>
-    </ng-container>
-
-  </md-table>
+<div class='table-resposive'>
+    <app-table [settings]="settings"
+               [rows]="orders"
+               (edit)="openEditDialog($event)"
+               (delete)="openEditDialog($event)"
+               (create)="openCreateDialog($event)"
+               (filter)="filter($event)"
+               (sort)="sort($event)">
+    </app-table>
 </div>

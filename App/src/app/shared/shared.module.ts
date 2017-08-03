@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MdToolbarModule, MdButtonModule, MdDialogModule, MdInputModule} from '@angular/material';
+import { MdToolbarModule, MdButtonModule, MdDialogModule, MdInputModule, MdDatepickerModule, MdNativeDateModule } from '@angular/material';
 
 @NgModule({
   imports: [ CommonModule ],
@@ -13,7 +13,9 @@ import {MdToolbarModule, MdButtonModule, MdDialogModule, MdInputModule} from '@a
     MdToolbarModule,
     MdButtonModule,
     MdDialogModule,
-    MdInputModule
+    MdInputModule,
+    MdDatepickerModule,
+    MdNativeDateModule
   ],
   declarations: [ ],
 })

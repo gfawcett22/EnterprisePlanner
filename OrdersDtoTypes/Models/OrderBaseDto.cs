@@ -9,11 +9,11 @@ namespace OrdersDtoTypes.Models
     [ProtoInclude(101, typeof(OrderToCreateDto))]
     [ProtoInclude(102, typeof(OrderToUpdateDto))]
     public abstract class OrderBaseDto
-    {
+    {        
         [ProtoMember(2)]
-        public virtual DateTime DatePlaced { get; set; }
+        public DateTime DatePlaced { get; set; }
         [Required]
         [ProtoMember(3)]
-        public virtual int CustomerId { get; set; }
+        public int CustomerId { get; set; }
     }
 }

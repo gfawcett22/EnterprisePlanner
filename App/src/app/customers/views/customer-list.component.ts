@@ -3,7 +3,7 @@ import { Row } from '../../table/lib/row';
 import { CustomerPagingParameters } from '../models/customer-paging-parameters.interface';
 import { CustomerService } from '../services/customer.service';
 import { Customer } from '../models/customer.interface';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { CustomerEditComponent } from 'app/customers/views/customer-edit.component';
 import { CustomerDetailComponent } from 'app/customers/views/customer-detail.component';
@@ -18,8 +18,7 @@ import { ITableSettings } from "app/table/lib/interfaces/ITableSettings";
             color: black;
         }
         `
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    ]
 })
 
 export class CustomerListComponent implements OnInit {
@@ -44,7 +43,7 @@ export class CustomerListComponent implements OnInit {
         noResultsMessage: 'No Results'
     };
 
-    constructor(private customerService: CustomerService, public dialog: MdDialog, private cdr: ChangeDetectorRef) { }
+    constructor(private customerService: CustomerService, public dialog: MdDialog) { }
 
     ngOnInit() {
         this.getCustomers();
@@ -59,7 +58,6 @@ export class CustomerListComponent implements OnInit {
     onCustomersReceived(customerPagingResult: CustomerPagingResult) {
         this.customers = customerPagingResult.data || [];
         this.totalCustomerCount = customerPagingResult.totalResultCount;
-        this.cdr.markForCheck();
     }
 
     openEditDialog(row: Row) {

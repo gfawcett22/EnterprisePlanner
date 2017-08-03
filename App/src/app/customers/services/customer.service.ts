@@ -33,7 +33,7 @@ export class CustomerService extends BaseHttpService {
         const url = `${this.customerApiUrl}/${id}`;
         return this.http.get(url)
             .map(super.extractData)
-            .do(customer => console.log(customer))
+            //.do(customer => console.log(customer))
             .catch(super.handleError);
     }
 

@@ -9,15 +9,15 @@ namespace CustomersDtoTypes.Models
     [ProtoInclude(102, typeof(CustomerToCreateDto))]
     [ProtoInclude(103, typeof(CustomerToUpdateDto))]
     public abstract class CustomerBaseDto
-    {
+    {        
         [ProtoMember(2)]
         [Required]
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
         [ProtoMember(3)]
         [Required]
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
         [ProtoMember(4)]
         [Required]
-        public virtual string Business { get; set; }
+        public string Business { get; set; }
     }
 }

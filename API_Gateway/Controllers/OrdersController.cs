@@ -106,15 +106,12 @@ namespace API_Gateway.Controllers
             MemoryStream orderProtoStream = new MemoryStream();
             Serializer.Serialize(orderProtoStream, orderToUpdate);
             ByteArrayContent bArray = new ByteArrayContent(orderProtoStream.ToArray());
-            var orderResponse = await _client.PutAsync(_client.BaseAddress, bArray);
 
-            if (orderResponse.IsSuccessStatusCode)
-            {
-                var ordersStream = await orderResponse.Content.ReadAsStreamAsync();
-                var order = Serializer.Deserialize<OrderDto>(ordersStream);
-                if (order != null)
-                    return StatusCode((int)orderResponse.StatusCode, order);
-            }
+            UriBuilder uriBuilder = new UriBuilder(_client.BaseAddress);
+            uriBuilder.Path +=  "/" + id;
+
+            var orderResponse = await _client.PutAsync(uriBuilder.Uri, bArray);
+
             return StatusCode((int)orderResponse.StatusCode);
         }
 

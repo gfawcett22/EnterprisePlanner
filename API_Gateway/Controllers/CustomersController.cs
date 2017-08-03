@@ -111,15 +111,9 @@ namespace API_Gateway.Controllers
             MemoryStream customerProtoStream = new MemoryStream();
             Serializer.Serialize(customerProtoStream, customerToUpdate);
             ByteArrayContent bArray = new ByteArrayContent(customerProtoStream.ToArray());
+            
             var customerResponse = await _client.PutAsync(uriBuilder.Uri, bArray);
-
-            if (customerResponse.IsSuccessStatusCode)
-            {
-                var customersStream = await customerResponse.Content.ReadAsStreamAsync();
-                var customer = Serializer.Deserialize<CustomerDto>(customersStream);
-                if (customer != null)
-                    return StatusCode((int)customerResponse.StatusCode, customer);
-            }
+            
             return StatusCode((int)customerResponse.StatusCode);
         }
 
