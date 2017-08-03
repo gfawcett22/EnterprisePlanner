@@ -34,6 +34,19 @@ services:
       - "5002:5002"
     networks: 
       - enterprise-planner-network
+    
+  message_broker:
+    image: rabbitmq:3-management
+    ports: 
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      - RABBITMQ_ERLANG_COOKIE='secret cookie'
+    links:
+      - customers
+      - orders
+    networks: 
+      - enterprise-planner-network
  
 networks:
   enterprise-planner-network:
