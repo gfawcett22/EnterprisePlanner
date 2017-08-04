@@ -8,3 +8,7 @@ a:hover, a::selection{
 a:visited{
   color: white;
 }
+
+.content {
+  padding: 20px;
+}
