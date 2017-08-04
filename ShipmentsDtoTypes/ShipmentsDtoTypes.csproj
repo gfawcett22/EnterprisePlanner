@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard1.5</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="protobuf-net" Version="2.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebApiHelpersTypes\WebApiHelpersTypes.csproj">
+      <Project>{BCB73B68-6EEA-4E6A-B338-374D329A7F80}</Project>
+      <Name>WebApiHelpersTypes</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

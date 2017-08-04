@@ -4,9 +4,6 @@
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.1.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
@@ -20,7 +17,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.1" />
-    <PackageReference Include="protobuf-net" Version="2.2.1" />
+    <PackageReference Include="protobuf-net" Version="2.3.1" />
     <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
   </ItemGroup>
   <ItemGroup>
@@ -29,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CustomerDtoTypes\CustomersDtoTypes.csproj" />
     <ProjectReference Include="..\OrdersDtoTypes\OrdersDtoTypes.csproj" />
+    <ProjectReference Include="..\ShipmentsDtoTypes\ShipmentsDtoTypes.csproj" />
     <ProjectReference Include="..\WebApiHelpers\WebApiHelpers.csproj" />
   </ItemGroup>
 </Project>

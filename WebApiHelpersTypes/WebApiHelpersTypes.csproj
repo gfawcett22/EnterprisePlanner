@@ -5,7 +5,4 @@
   <ItemGroup>
     <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="RabbitMQ" />
-  </ItemGroup>
 </Project>

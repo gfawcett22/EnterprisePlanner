@@ -36,7 +36,7 @@ namespace Orders
                 cfg.InputFormatters.Add(new ProtobufInputFormatter());
                 cfg.OutputFormatters.Add(new ProtobufOutputFormatter());
             });
-            var connectionString = Configuration["connectionStrings:DefaultConnection"];
+            
             services.AddDbContext<OrdersDbContext>(o => o.UseInMemoryDatabase());
 
             services.AddScoped<IOrderRepository, OrderRepository>();
@@ -48,7 +48,6 @@ namespace Orders
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            //if it is production, just return general server error message
             app.UseExceptionHandler(appBuilder =>
             {
                 appBuilder.Run(async context =>

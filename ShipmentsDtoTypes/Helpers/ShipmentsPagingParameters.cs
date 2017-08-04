@@ -1,15 +1,16 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using WebApiHelpersTypes.Helpers;
 
-namespace OrdersDtoTypes.Helpers
+namespace ShipmentsDtoTypes.Helpers
 {
-    public class OrdersPagingParameters : PagingParameters
+    public class ShipmentsPagingParameters : PagingParameters
     {
         //Search values for the orders
         public string Id { get; set; }
-        public string DatePlaced { get; set; }
         public string CustomerId { get; set; }
+        public string OrderId { get; set; }
+        public string Status { get; set; }
     }
 }

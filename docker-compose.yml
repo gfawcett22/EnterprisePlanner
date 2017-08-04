@@ -21,6 +21,7 @@ services:
     links:
       - customers
       - orders
+      - shipments
     networks: 
       - enterprise-planner-network
   
@@ -33,6 +34,16 @@ services:
     ports:
       - "5002:5002"
     networks: 
+      - enterprise-planner-network
+
+  shipments:
+    image: shipments
+    build:
+      context: ./Shipments
+      dockerfile: Dockerfile
+    ports:
+      - "5003:5003"
+    networks:
       - enterprise-planner-network
     
   message_broker:

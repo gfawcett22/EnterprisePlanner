@@ -41,6 +41,7 @@ namespace API_Gateway
             });
             services.AddSingleton(new CustomersHttpClient());
             services.AddSingleton(new OrdersHttpClient());
+            services.AddSingleton(new ShipmentsHttpClient());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
