@@ -37,7 +37,7 @@ namespace Orders
                 cfg.OutputFormatters.Add(new ProtobufOutputFormatter());
             });
             
-            services.AddDbContext<OrdersDbContext>(o => o.UseInMemoryDatabase());
+            services.AddDbContext<OrdersDbContext>(o => o.UseInMemoryDatabase("Orders"));
 
             services.AddScoped<IOrderRepository, OrderRepository>();
         }

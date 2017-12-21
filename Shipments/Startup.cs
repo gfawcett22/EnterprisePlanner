@@ -36,7 +36,7 @@ namespace Shipments
                 cfg.OutputFormatters.Add(new ProtobufOutputFormatter());
             });
             
-            services.AddDbContext<ShipmentsDbContext>(o => o.UseInMemoryDatabase());
+            services.AddDbContext<ShipmentsDbContext>(o => o.UseInMemoryDatabase("Shipments"));
 
             services.AddScoped<IShipmentRepository, ShipmentRepository>();
         }

@@ -37,7 +37,7 @@ namespace Customers
                 cfg.OutputFormatters.Add(new ProtobufOutputFormatter());
             });
             var connectionString = Configuration["connectionStrings:DefaultConnection"];
-            services.AddDbContext<CustomersDbContext>(o => o.UseInMemoryDatabase());
+            services.AddDbContext<CustomersDbContext>(o => o.UseInMemoryDatabase("Customers"));
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
         }
