@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 
 namespace API_Gateway.HttpClients
 {
@@ -14,8 +10,8 @@ namespace API_Gateway.HttpClients
     {
         public BaseMicroservicesHttpClient()
         {
-            this.DefaultRequestHeaders.Accept.Clear();
-            this.DefaultRequestHeaders.Accept.Add(
+            DefaultRequestHeaders.Accept.Clear();
+            DefaultRequestHeaders.Accept.Add(
                 new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/x-protobuf"));
         }
     }

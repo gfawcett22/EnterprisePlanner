@@ -15,17 +15,12 @@ namespace Customers
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
-        public IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -39,7 +34,7 @@ namespace Customers
             var connectionString = Configuration["connectionStrings:DefaultConnection"];
             services.AddDbContext<CustomersDbContext>(o => o.UseInMemoryDatabase("Customers"));
 
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +53,8 @@ namespace Customers
                 });
             });
 
+            app.UseMvc();
+
             var custContext = app.ApplicationServices.GetService<CustomersDbContext>();
             CustomersDbSeeder.SeedInMemoryDatabase(custContext);
 
@@ -66,9 +63,7 @@ namespace Customers
                 cfg.CreateMap<Customer, CustomerDto>();
                 cfg.CreateMap<CustomerToCreateDto, Customer>();
                 cfg.CreateMap<CustomerToUpdateDto, Customer>();
-            });
-
-            app.UseMvc();
+            });            
         }
     }
 }

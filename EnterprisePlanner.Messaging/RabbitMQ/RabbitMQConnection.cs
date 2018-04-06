@@ -1,4 +1,5 @@
 ﻿using EnterprisePlanner.Messaging.RabbitMQ.Abstractions;
+using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using RabbitMQ.Client;
@@ -14,13 +15,17 @@ namespace EnterprisePlanner.Messaging.RabbitMQ
     {
         private IConnectionFactory _connectionFactory { get; set; }
         IConnection _connection;
+        private readonly ILogger<RabbitMQConnection> _logger;
+        private readonly int _retryCount;
         bool _disposed;
 
         object sync_root = new object();
 
-        public RabbitMQConnection(IConnectionFactory connectionFactory)
+        public RabbitMQConnection(IConnectionFactory connectionFactory, ILogger<RabbitMQConnection> logger, int retryCount = 5)
         {
             _connectionFactory = connectionFactory ?? throw new ArgumentNullException(nameof(connectionFactory));
+            _logger = logger;
+            _retryCount = retryCount;
         }
 
         public bool IsConnected
@@ -59,6 +64,8 @@ namespace EnterprisePlanner.Messaging.RabbitMQ
                 }
                 else
                 {
+                    _logger.LogCritical("FATAL ERROR: RabbitMQ connection could not be created and opened");
+
                     return false;
                 }
             }
@@ -86,13 +93,15 @@ namespace EnterprisePlanner.Messaging.RabbitMQ
             }
             catch (IOException ex)
             {
-                throw ex; 
+                _logger.LogCritical(ex.ToString());
             }
         }
 
         private void OnConnectionBlocked(object sender, ConnectionBlockedEventArgs e)
         {
             if (_disposed) return;
+
+            _logger.LogWarning("A RabbitMQ connection is shutdown. Trying to re-connect...");
 
             TryConnect();
         }
@@ -101,12 +110,16 @@ namespace EnterprisePlanner.Messaging.RabbitMQ
         {
             if (_disposed) return;
 
+            _logger.LogWarning("A RabbitMQ connection throw exception. Trying to re-connect...");
+
             TryConnect();
         }
 
         void OnConnectionShutdown(object sender, ShutdownEventArgs reason)
         {
             if (_disposed) return;
+
+            _logger.LogWarning("A RabbitMQ connection is on shutdown. Trying to re-connect...");
 
             TryConnect();
         }

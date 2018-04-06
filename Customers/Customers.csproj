@@ -22,4 +22,7 @@
     <ProjectReference Include="..\WebApiHelpers\WebApiHelpers.csproj" />
     <ProjectReference Include="..\WebApiHelpersTypes\WebApiHelpersTypes.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
 </Project>

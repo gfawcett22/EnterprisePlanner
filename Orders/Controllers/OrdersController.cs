@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using EnterprisePlanner.Messaging.Models.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Orders.Entities;
+using Orders.IntegrationEvents;
 using Orders.Repositories;
 using OrdersDtoTypes.Helpers;
 using OrdersDtoTypes.Models;
@@ -16,10 +18,11 @@ namespace Orders.Controllers
     public class OrdersController : Controller
     {
         private readonly IOrderRepository _repo;
-
-        public OrdersController(IOrderRepository repo)
+        private readonly IEventBus _eventBus;
+        public OrdersController(IOrderRepository repo, IEventBus eventBus)
         {
             _repo = repo;
+            _eventBus = eventBus;
         }
 
         [HttpGet]
@@ -74,6 +77,10 @@ namespace Orders.Controllers
                 {
                     throw new Exception("Error creating order.");
                 }
+
+                var eventMessage = new OrderCreatedIntegrationEvent(orderEntity);
+                _eventBus.Publish(eventMessage);
+
                 var orderToReturn = Mapper.Map<OrderDto>(orderEntity);
                 return CreatedAtRoute("GetOrder", new { id = orderToReturn.Id }, orderToReturn);
             }
